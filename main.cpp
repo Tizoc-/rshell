@@ -11,29 +11,32 @@ int main()
  char *argv[100];
  char *pch;
  char *usrname= getlogin();
- int arg;
+ int arg=0;
  char user[50];
  cout<<usrname<<"@"<<"$ ";
  cin.getline(user,50);
  pch=strtok(user," ");
  cout<<pch<<endl;
- for(int i=0;pch != NULL;i++)
- {
    if(strcmp(pch,"exit")==0)
    {
      exit(1);
    }
+ int pid=fork();
+ if(pid==0)
+ {
+   for(int i=0;pch !=NULL;i++)
+   {
    argv[i]=new char[100];
    strcpy(argv[i],pch);
-    cout<<i<<endl; 
    pch=strtok(NULL," ");
    arg=i;
- }
- arg++;
- argv[arg]=NULL;
+   }
+   arg++;
+   argv[arg]=NULL;
  execvp(argv[0],argv);
-  for(int i=0;i<100;i++)
-  {
-    delete argv[i];
-  }
-}
+ }
+ else 
+ {
+   wait(0);
+   }
+ }
