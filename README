@@ -1,0 +1,26 @@
+RSHELL
+================
+LICENSE INFO
+---
+Project Source can be downloaded from https://github/Tizoc-/rhsell.git
+----
+
+Author & Contributor List
+---------------
+Paul Alvarez
+
+File List
+--------
+
+Makefile
+LICENSE
+README
+./src
+./tests
+
+/src
+main.cpp
+
+./tests
+
+
