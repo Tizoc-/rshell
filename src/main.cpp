@@ -1,4 +1,5 @@
 #include <iostream>
+#include <pwd.h>
 #include <errno.h>
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -12,12 +13,13 @@ int main()
 {
 	char *argv[100];
 	char *pch;
-	char *usrname= getlogin();
+	passwd  *usrname= getpwuid(getuid());
 	char *host;
 	char user[50];
-	if(usrname !=NULL)
+	if(errno !=0)
 	{
-		perror("username noame error");
+		perror("username name error");
+		exit(1);
 	}
 	while(1){
 		host= new char[30];
@@ -27,7 +29,7 @@ int main()
 		}
 		cout<<usrname<<"@"<<host<<" $ ";
 		delete []host;
-		int  arg;
+		int arg;
 		cin.getline(user,50);
 		pch=strtok(user," ");
 		if(strcmp(pch,"exit")==0)
@@ -35,9 +37,9 @@ int main()
 			exit(1);
 		}
 		for(unsigned i=0;i<100;i++)
-	                {
-  	       		argv[i]=new char[100];
-			}
+		{
+			argv[i]=new char[100];
+		}
 		int pid=fork();
 		if(pid==0)
 		{
@@ -68,7 +70,6 @@ int main()
 							strcpy(argv[j],pch);
 							cout<<argv[j]<<endl;
 							arg=j;
-							cout<<arg<<endl;
 							exit(1);
 						}
 					}
@@ -81,7 +82,6 @@ int main()
 				}
 			}
 			arg++;
-			cout<<arg<<endl;
 			argv[arg]=NULL;
 			if( execvp(argv[0],argv)==-1)
 			{
@@ -96,7 +96,6 @@ int main()
 		{
 			wait(0);
 		}
-		cout<<"end"<<endl;
 		for(int i=0;i<100;i++)
 		{
 			delete argv[i];
