@@ -1,3 +1,3 @@
 all:
 	[ -d ./bin ] || mkdir bin
-	g++ -Wall -Werror -ansi -pedantic main.cpp ./src/main.cpp -o ./bin/main 
+	g++ -Wall -Werror -ansi -pedantic  src/main.cpp -o bin/main 

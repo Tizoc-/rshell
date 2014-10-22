@@ -1,0 +1,70 @@
+Script started on Tue 21 Oct 2014 10:57:11 PM PDT
+]0;paul@Tizoc-220-1125: ~/cs100/rshell/srcpaul@Tizoc-220-1125:~/cs100/rshell/src$ #exit terminal
+]0;paul@Tizoc-220-1125: ~/cs100/rshell/srcpaul@Tizoc-220-1125:~/cs100/rshell/src$ .ao[K[K[K./a.out
+0x7f6370e82280@Tizoc-220-1125 $ exit
+]0;paul@Tizoc-220-1125: ~/cs100/rshell/srcpaul@Tizoc-220-1125:~/cs100/rshell/src$ #exit terminal with exit as parameter
+]0;paul@Tizoc-220-1125: ~/cs100/rshell/srcpaul@Tizoc-220-1125:~/cs100/rshell/src$ ./a.out
+0x7fd52b22c280@Tizoc-220-1125 $ ls - exit
+ls: cannot access exit: No such file or directory
+0x7fd52b22c280@Tizoc-220-1125 $ # run commands with on t  e to many parametrs  ers
+invalid command: No such file or directory
+0x7fd52b22c280@Tizoc-220-1125 $ ls -a
+.  ..  a.out  exec  main.cpp
+0x7fd52b22c280@Tizoc-220-1125 $ ls
+a.out  exec  main.cpp
+0x7fd52b22c280@Tizoc-220-1125 $ ps s
+  PID TTY          TIME CMD
+ 5237 pts/11   00:00:00 bash
+ 5250 pts/11   00:00:00 a.out
+ 5253 pts/11   00:00:00 a.out
+ 5256 pts/11   00:00:00 ps
+0x7fd52b22c280@Tizoc-220-1125 $ pwd
+/home/paul/cs100/rshell/src
+0x7fd52b22c280@Tizoc-220-1125 $ ls -a -a  -  a  -l
+total 28
+drwxrwxr-x 2 paul paul  4096 Oct 21 22:57 .
+drwxrwxr-x 6 paul paul  4096 Oct 21 22:41 ..
+-rwxrwxr-x 1 paul paul 14234 Oct 21 22:56 a.out
+-rw-rw-r-- 1 paul paul     0 Oct 21 22:57 exec
+-rw-rw-r-- 1 paul paul  1609 Oct 21 22:56 main.cpp
+0x7fd52b22c280@Tizoc-220-1125 $ # runn  commands with large space int  between
+invalid command: No such file or directory
+0x7fd52b22c280@Tizoc-220-1125 $ ls                     -a
+.  ..  a.out  exec  main.cpp
+0x7fd52b22c280@Tizoc-220-1125 $ # run bin   shell from within shell
+invalid command: No such file or directory
+0x7fd52b22c280@Tizoc-220-1125 $ cd .aout   /aout          ./a.out       ls
+a.out  exec  main.cpp
+0x7fd52b22c280@Tizoc-220-1125 $ .a.out     /a.out
+0x7f192fc09280@Tizoc-220-1125 $ #inside second shell
+invalid command: No such file or directory
+0x7f192fc09280@Tizoc-220-1125 $ exit
+0x7f192fc09280@Tizoc-220-1125 $ # non existing coma mand
+invalid command: No such file or directory
+0x7f192fc09280@Tizoc-220-1125 $ cd
+invalid command: No such file or directory
+0x7f192fc09280@Tizoc-220-1125 $ # exit with parametesr  rs
+invalid command: No such file or directory
+0x7f192fc09280@Tizoc-220-1125 $ exit ls
+0x7f192fc09280@Tizoc-220-1125 $ # c comment that is inside a comment      mand wont run
+invalid command: No such file or directory
+0x7f192fc09280@Tizoc-220-1125 $ l  s # -a
+a.out  exec  main.cpp
+0x7f192fc09280@Tizoc-220-1125 $ #
+invalid command: No such file or directory
+0x7f192fc09280@Tizoc-220-1125 $ exit
+0x7f192fc09280@Tizoc-220-1125 $ exit
+0x7f192fc09280@Tizoc-220-1125 $ exi
+invalid command: No such file or directory
+0x7f192fc09280@Tizoc-220-1125 $ exit
+0x7f192fc09280@Tizoc-220-1125 $ exit
+0x7f192fc09280@Tizoc-220-1125 $ exit
+0x7f192fc09280@Tizoc-220-1125 $ exit
+0x7fd52b22c280@Tizoc-220-1125 $ exit
+0x7fd52b22c280@Tizoc-220-1125 $ exit
+0x7fd52b22c280@Tizoc-220-1125 $ exit
+0x7fd52b22c280@Tizoc-220-1125 $ exit
+]0;paul@Tizoc-220-1125: ~/cs100/rshell/srcpaul@Tizoc-220-1125:~/cs100/rshell/src$ exit
+exit
+
+Script done on Tue 21 Oct 2014 11:03:36 PM PDT
