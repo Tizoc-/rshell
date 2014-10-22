@@ -1,70 +1,100 @@
-Script started on Tue 21 Oct 2014 10:57:11 PM PDT
-]0;paul@Tizoc-220-1125: ~/cs100/rshell/srcpaul@Tizoc-220-1125:~/cs100/rshell/src$ #exit terminal
-]0;paul@Tizoc-220-1125: ~/cs100/rshell/srcpaul@Tizoc-220-1125:~/cs100/rshell/src$ .ao[K[K[K./a.out
-0x7f6370e82280@Tizoc-220-1125 $ exit
-]0;paul@Tizoc-220-1125: ~/cs100/rshell/srcpaul@Tizoc-220-1125:~/cs100/rshell/src$ #exit terminal with exit as parameter
+Script started on Tue 21 Oct 2014 11:36:25 PM PDT
+]0;paul@Tizoc-220-1125: ~/cs100/rshell/testspaul@Tizoc-220-1125:~/cs100/rshell/tests$ cd..
+cd..: command not found
+]0;paul@Tizoc-220-1125: ~/cs100/rshell/testspaul@Tizoc-220-1125:~/cs100/rshell/tests$ cd ..
+]0;paul@Tizoc-220-1125: ~/cs100/rshellpaul@Tizoc-220-1125:~/cs100/rshell$ #exit demontrates exit [Kio[Kng
+]0;paul@Tizoc-220-1125: ~/cs100/rshellpaul@Tizoc-220-1125:~/cs100/rshell$ make
+[ -d ./bin ] || mkdir bin
+g++ -Wall -Werror -ansi -pedantic  src/main.cpp -o bin/main 
+]0;paul@Tizoc-220-1125: ~/cs100/rshellpaul@Tizoc-220-1125:~/cs100/rshell$ cd src
 ]0;paul@Tizoc-220-1125: ~/cs100/rshell/srcpaul@Tizoc-220-1125:~/cs100/rshell/src$ ./a.out
-0x7fd52b22c280@Tizoc-220-1125 $ ls - exit
+0x7f46bbed7280@Tizoc-220-1125 $ exit
+]0;paul@Tizoc-220-1125: ~/cs100/rshell/srcpaul@Tizoc-220-1125:~/cs100/rshell/src$ #exit wo[K[Kith [K[K[K[Kas a parameter and with para,eters
+]0;paul@Tizoc-220-1125: ~/cs100/rshell/srcpaul@Tizoc-220-1125:~/cs100/rshell/src$ ./a.out
+0x7f46588cf280@Tizoc-220-1125 $ ls -e  exit
 ls: cannot access exit: No such file or directory
-0x7fd52b22c280@Tizoc-220-1125 $ # run commands with on t  e to many parametrs  ers
+0x7f46588cf280@Tizoc-220-1125 $ exit ls
+]0;paul@Tizoc-220-1125: ~/cs100/rshell/srcpaul@Tizoc-220-1125:~/cs100/rshell/src$ ./a.out
+0x7f5a6ecde280@Tizoc-220-1125 $ # commands with many argiments and with only one
 invalid command: No such file or directory
-0x7fd52b22c280@Tizoc-220-1125 $ ls -a
-.  ..  a.out  exec  main.cpp
-0x7fd52b22c280@Tizoc-220-1125 $ ls
-a.out  exec  main.cpp
-0x7fd52b22c280@Tizoc-220-1125 $ ps s
-  PID TTY          TIME CMD
- 5237 pts/11   00:00:00 bash
- 5250 pts/11   00:00:00 a.out
- 5253 pts/11   00:00:00 a.out
- 5256 pts/11   00:00:00 ps
-0x7fd52b22c280@Tizoc-220-1125 $ pwd
+0x7f5a6ecde280@Tizoc-220-1125 $ ls
+a.out  main.cpp
+0x7f5a6ecde280@Tizoc-220-1125 $ ls -a
+.  ..  a.out  main.cpp
+0x7f5a6ecde280@Tizoc-220-1125 $ pwd
 /home/paul/cs100/rshell/src
-0x7fd52b22c280@Tizoc-220-1125 $ ls -a -a  -  a  -l
+0x7f5a6ecde280@Tizoc-220-1125 $ ps
+  PID TTY          TIME CMD
+ 5547 pts/9    00:00:00 bash
+ 5573 pts/9    00:00:00 a.out
+ 5574 pts/9    00:00:00 a.out
+ 5578 pts/9    00:00:00 ps
+0x7f5a6ecde280@Tizoc-220-1125 $ ls -l
+total 20
+-rwxrwxr-x 1 paul paul 14234 Oct 21 23:07 a.out
+-rw-rw-r-- 1 paul paul  1609 Oct 21 23:31 main.cpp
+0x7f5a6ecde280@Tizoc-220-1125 $ ls -a ls    l   -l -a -l -a
 total 28
-drwxrwxr-x 2 paul paul  4096 Oct 21 22:57 .
-drwxrwxr-x 6 paul paul  4096 Oct 21 22:41 ..
--rwxrwxr-x 1 paul paul 14234 Oct 21 22:56 a.out
--rw-rw-r-- 1 paul paul     0 Oct 21 22:57 exec
--rw-rw-r-- 1 paul paul  1609 Oct 21 22:56 main.cpp
-0x7fd52b22c280@Tizoc-220-1125 $ # runn  commands with large space int  between
+drwxrwxr-x 2 paul paul  4096 Oct 21 23:31 .
+drwxrwxr-x 6 paul paul  4096 Oct 21 23:30 ..
+-rwxrwxr-x 1 paul paul 14234 Oct 21 23:07 a.out
+-rw-rw-r-- 1 paul paul  1609 Oct 21 23:31 main.cpp
+0x7f5a6ecde280@Tizoc-220-1125 $ echo test tst tet
+test tst tet
+0x7f5a6ecde280@Tizoc-220-1125 $ echo "test test"
+"test test"
+0x7f5a6ecde280@Tizoc-220-1125 $ eho c   echo heloo everyone test test tes hi hi hih hi
+heloo everyone test test tes hi hi hih hi
+0x7f5a6ecde280@Tizoc-220-1125 $ #rshell within itself
 invalid command: No such file or directory
-0x7fd52b22c280@Tizoc-220-1125 $ ls                     -a
-.  ..  a.out  exec  main.cpp
-0x7fd52b22c280@Tizoc-220-1125 $ # run bin   shell from within shell
+0x7f5a6ecde280@Tizoc-220-1125 $ ls
+a.out  main.cpp
+0x7f5a6ecde280@Tizoc-220-1125 $ ./a.out
+0x7fcff125f280@Tizoc-220-1125 $ #secon  d rshell
 invalid command: No such file or directory
-0x7fd52b22c280@Tizoc-220-1125 $ cd .aout   /aout          ./a.out       ls
-a.out  exec  main.cpp
-0x7fd52b22c280@Tizoc-220-1125 $ .a.out     /a.out
-0x7f192fc09280@Tizoc-220-1125 $ #inside second shell
+0x7fcff125f280@Tizoc-220-1125 $ exit
+0x7fcff125f280@Tizoc-220-1125 $ # large space between arguments
 invalid command: No such file or directory
-0x7f192fc09280@Tizoc-220-1125 $ exit
-0x7f192fc09280@Tizoc-220-1125 $ # non existing coma mand
+0x7fcff125f280@Tizoc-220-1125 $ ls       -- aaa           -a         -a               -a
+ls: cannot access -: No such file or directory
+0x7fcff125f280@Tizoc-220-1125 $ ls     -a
+.  ..  a.out  main.cpp
+0x7fcff125f280@Tizoc-220-1125 $ ls      -a     -l
+total 28
+drwxrwxr-x 2 paul paul  4096 Oct 21 23:31 .
+drwxrwxr-x 6 paul paul  4096 Oct 21 23:30 ..
+-rwxrwxr-x 1 paul paul 14234 Oct 21 23:07 a.out
+-rw-rw-r-- 1 paul paul  1609 Oct 21 23:31 main.cpp
+0x7fcff125f280@Tizoc-220-1125 $ ls            -a        -l
+total 28
+drwxrwxr-x 2 paul paul  4096 Oct 21 23:31 .
+drwxrwxr-x 6 paul paul  4096 Oct 21 23:30 ..
+-rwxrwxr-x 1 paul paul 14234 Oct 21 23:07 a.out
+-rw-rw-r-- 1 paul paul  1609 Oct 21 23:31 main.cpp
+0x7fcff125f280@Tizoc-220-1125 $ # commetns
 invalid command: No such file or directory
-0x7f192fc09280@Tizoc-220-1125 $ cd
+0x7fcff125f280@Tizoc-220-1125 $ ls # -a
+a.out  main.cpp
+0x7fcff125f280@Tizoc-220-1125 $  #
 invalid command: No such file or directory
-0x7f192fc09280@Tizoc-220-1125 $ # exit with parametesr  rs
+0x7fcff125f280@Tizoc-220-1125 $ # wrong command
 invalid command: No such file or directory
-0x7f192fc09280@Tizoc-220-1125 $ exit ls
-0x7f192fc09280@Tizoc-220-1125 $ # c comment that is inside a comment      mand wont run
+0x7fcff125f280@Tizoc-220-1125 $ ccc
 invalid command: No such file or directory
-0x7f192fc09280@Tizoc-220-1125 $ l  s # -a
-a.out  exec  main.cpp
-0x7f192fc09280@Tizoc-220-1125 $ #
+0x7fcff125f280@Tizoc-220-1125 $ chocolate
 invalid command: No such file or directory
-0x7f192fc09280@Tizoc-220-1125 $ exit
-0x7f192fc09280@Tizoc-220-1125 $ exit
-0x7f192fc09280@Tizoc-220-1125 $ exi
-invalid command: No such file or directory
-0x7f192fc09280@Tizoc-220-1125 $ exit
-0x7f192fc09280@Tizoc-220-1125 $ exit
-0x7f192fc09280@Tizoc-220-1125 $ exit
-0x7f192fc09280@Tizoc-220-1125 $ exit
-0x7fd52b22c280@Tizoc-220-1125 $ exit
-0x7fd52b22c280@Tizoc-220-1125 $ exit
-0x7fd52b22c280@Tizoc-220-1125 $ exit
-0x7fd52b22c280@Tizoc-220-1125 $ exit
+0x7fcff125f280@Tizoc-220-1125 $ ls chocolate
+ls: cannot access chocolate: No such file or directory
+0x7fcff125f280@Tizoc-220-1125 $ exit
+0x7fcff125f280@Tizoc-220-1125 $ exit
+0x7fcff125f280@Tizoc-220-1125 $ exit
+0x7fcff125f280@Tizoc-220-1125 $ exit
+0x7fcff125f280@Tizoc-220-1125 $ exit
+0x7fcff125f280@Tizoc-220-1125 $ exit
+0x7f5a6ecde280@Tizoc-220-1125 $ ei xit
+0x7f5a6ecde280@Tizoc-220-1125 $ exit
+0x7f5a6ecde280@Tizoc-220-1125 $ exit
 ]0;paul@Tizoc-220-1125: ~/cs100/rshell/srcpaul@Tizoc-220-1125:~/cs100/rshell/src$ exit
 exit
 
-Script done on Tue 21 Oct 2014 11:03:36 PM PDT
+Script done on Tue 21 Oct 2014 11:44:31 PM PDT
