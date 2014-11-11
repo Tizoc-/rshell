@@ -16,7 +16,6 @@
 using namespace std;
 string  getmodes();
 void dir(string &file,int flags);
-void noflags();
 int getflags(int argc,char **argv,string &file);
 int main(int argc,char ** argv)
 {
@@ -56,9 +55,6 @@ int  getflags(int argc,char **argv,string &file)
 	}
 	return flags;
 
-}
-void dirinfo()
-{
 }
 void dir(string &file,int flags)
 {
