@@ -14,8 +14,9 @@
 #include <stdio.h>
 #include <string.h>
 using namespace std;
-void inf(string filr,struct stat inf);
+void info(string file);
 void ls(int flags,string file);
+void rls(int flags,string file);
 int main(int argc,char **argv)
 {
     bool lflag=false;
@@ -52,7 +53,7 @@ int main(int argc,char **argv)
 
         }
     }
-    cout<<files.size();
+    cout<<files.size()<<endl;
     cout<<flags<<endl;
     sort(files.begin(), files.end(), locale("en_US.UTF-8"));    
     if(files.size()==0)
@@ -70,8 +71,9 @@ int main(int argc,char **argv)
 
     return 0;
 }
-void info(string file, struct stat inf)
+void info(string file )
 {
+    struct stat inf;
     string modes="";
     lstat(file.c_str(),&inf);
     if (S_ISDIR(inf.st_mode))
@@ -144,8 +146,10 @@ void info(string file, struct stat inf)
     cout<<grp->gr_name<<" ";
     cout<<inf.st_size<<" ";
     struct tm* t;
+    char b[50];
     t=localtime(&(inf.st_mtime));
-    cout<<t<<" ";
+    strftime(b,50, "%b %e %H:%M",t);
+    cout<<b<<" ";
     char buff[1024];
     char path[1024];
     cout << file<<endl;
@@ -170,10 +174,13 @@ void ls(int flags, string file)
     strcpy(dirName,file.c_str());
     DIR *dirp;
     dirent *direntp;
-    struct stat inf;
+    struct stat ls;
     int totes=0;
+    string path;
+    path.append(file);
+    path.append("/");
     vector<string>files;
-    cout<<file<<endl;
+    vector<string>dir;
     if(!(dirp =opendir(dirName)))
     {
         perror("opendir");
@@ -184,37 +191,90 @@ void ls(int flags, string file)
         {
             perror("readdir");
         }
-        if(flags==0||flags==2)//flags with hidden 
+        if(flags==0||flags==2||flags==4)//flags with hidden 
         {
             if(direntp->d_name[0]!='.')
             {
+
+                stat(direntp->d_name,&ls);
                 files.push_back(direntp->d_name);
-                totes+=inf.st_blocks;
+                totes+=ls.st_blocks;
             }
         }
-        else if(flags==1||flags==3||flags==6||flags==7)// flags with hidden
+        else if(flags==1||flags==3||flags==5||flags==7)// flags with hidden
         {
+            stat(direntp->d_name,&ls);
             files.push_back(direntp->d_name);
-            totes+=inf.st_blocks;
+            totes+=ls.st_blocks;
+
         }
     }
+    closedir(dirp);
     sort(files.begin(), files.end(), locale("en_US.UTF-8"));
+    for(vector<int>::size_type i = 0; i != files.size(); ++i)
+    {
+        int bl,fl;
+        bl=path.length();
+        path.append(files.at(i));
+        fl=path.length();
+        stat(files[i].c_str(),&ls);
+        if(S_ISDIR(ls.st_mode))
+        {
+            dir.push_back(path);
+        }
+        path.erase(bl,fl);
+    }
+    for(vector<int>::size_type i = 0; i != dir.size(); ++i)
+    {
+        cout<<dir[i]<<endl;
+    }
     if(flags==0||flags==1)
     {
+        for (vector<int>::size_type i = 0; i != files.size(); ++i)
+        {  // int length=80;
+            cout << files[i] <<"  ";
+
+        }
+
+    }
+    if(flags==2||flags==3)
+    {   cout<<"total: "<<totes/2<<endl;
+        for (vector<int>::size_type i = 0; i != files.size(); ++i)
+        {   
+            info(files[i]);
+        }
+
+    }
+    if(flags==4)
+    {
+        cout<<"hello";
         for (vector<int>::size_type i = 0; i != files.size(); ++i)
         {            cout << files[i] <<"  ";
 
         }
-
+        cout<<endl;
+        for (vector<int>::size_type i = 0; i != dir.size(); ++i)
+        {
+            cout<<dir[i]<<":"<<endl;
+            rls(4,dir[i]);
+        }
     }
-    if(flags==2||flags==3||flags==6||flags==7)
+    if(flags==5)//flags Rl
     {
         for (vector<int>::size_type i = 0; i != files.size(); ++i)
-        {           info(files[i],inf);
-
+        {   
+            cout<<files[i]<<endl;
         }
-
+        for (vector<int>::size_type i = 0; i != dir.size(); ++i)
+        {
+            cout<<dir[i]<<":"<<endl;
+    //        rls(5,dir[i]);
+        }
     }
+}
+void rls(int flags,string dire)
+{
+    ls(flags,dire);
 }
 
 
