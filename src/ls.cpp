@@ -147,13 +147,25 @@ void info(string file )
     cout<<modes<<" ";
     cout<<" "<<inf.st_nlink<<" ";
     struct passwd *usrname= getpwuid(inf.st_uid);
+   if(usrname==NULL)
+{
+ perror("getpwuid");
+}
     cout<<usrname->pw_name<<" ";
     struct group *grp=getgrgid(inf.st_gid);
+   if(grp==NULL)
+{
+  perror("getgrgid")
+}
     cout<<grp->gr_name<<" ";
     cout<<inf.st_size<<" ";
     struct tm* t;
     char b[50];
     t=localtime(&(inf.st_mtime));
+  if(t==NULL)
+ {
+ perror("localtime");
+}
     strftime(b,50, "%b %e %H:%M",t);
     cout<<b<<" ";
     char buff[1024];
