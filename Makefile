@@ -9,3 +9,7 @@ shell:
 cp:
 	[ -d ./bin] || mkdir bin
 	g++ -Wall -Werror -ansi -pedantic -std=c++11 src/cp.cpp -o bin/cp
+ls:
+	[ -d ./bin] || mkdir bin
+	g++ -Wall -Werror -ansi -pedantic -std=c++11 src/ls.cpp -o bin/ls
+
