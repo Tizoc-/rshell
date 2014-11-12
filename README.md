@@ -61,7 +61,10 @@ Bugs ls
 ---
 the recursion and optional file arguments dont work
 
-if nothing is passed then it causes a segmentation fault
+if an invalid file is passed a segmentation fault occurs  
 
 symbolic links dont show contets of directory it is pointing to
 
+not all combinations of flags work with symobilic links
+
+not formatted properly
