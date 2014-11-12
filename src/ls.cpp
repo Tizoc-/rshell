@@ -75,13 +75,12 @@ void info(string file )
     string modes="";
   //  bool d=false;
 //    bool e=false;
-  //  ool h=false;
-   
-   if( lstat(file.c_str(),&inf)==-1)
-   {
-    perror("lstat");
-    exit(1);
-   }
+  //  bool h=false;
+    if(lstat(file.c_str(),&inf)==-1)
+    {
+        perror("lstat");
+        exit(1);
+     }
     if (S_ISDIR(inf.st_mode))
     {
         modes.push_back('d');
@@ -192,50 +191,65 @@ void ls(int flags, string file)
     dirent *direntp;
     struct stat ls;
     struct stat r;
+    struct stat b;
     int totes=0;
-    cout<<regName<<endl;
     vector<string>files;
     vector<string>dir;
     if(lstat(regName,&r)==-1)
     {
-        cout<<"hello";
-      perror("lstatl");
-      exit(1);
-    }
+        perror("stat");
+        exit(1);
+        }
     if(S_ISREG(r.st_mode))
     {  if(flags==0||flags==1||flags==5||flags==4)
        {
         cout<<regName;
        }
-       else  if(flags==2||flags==3||flags==6)
+       else  if(flags==2||flags==3||flags==6||flags==7)
       {
         info(reg);
       }
     }
     else if(S_ISLNK(r.st_mode))
     {
-      if(flags==2||flags==3||flags==7)
+      if(flags==2||flags==3)
       {
           info(reg); 
       }
     }
-    else if(S_ISDIR(r.st_mode))
+    else
     {
      char *dirName=(char*)alloca(path.length()+1);
     strcpy(dirName,path.c_str());
-   if( stat(dirName,&r)==-1)
-       { 
-          perror("sstat");
+    if(stat(dirName,&r)==-1)
+        {
+          perror("stat");
           exit(1);
-       }
+        }
      if(!(dirp =opendir(dirName)))
     {
         perror("opendir");
         exit(1);
     }
     while((direntp=readdir(dirp))!=NULL)
-       {
-         if(errno !=0)
+    {  strcat(copy,"/");
+         strcat(copy,direntp->d_name);
+       if( lstat(copy,&ls)==-1)
+           {
+             perror("lstat");
+             exit(1);
+           }
+        if(S_ISREG(ls.st_mode))
+        {
+            if(flags==2)
+            {
+            }
+        }
+        else if(S_ISLNK(ls.st_mode))
+        {
+        
+        }
+        else if(errno !=0)
         {
             perror("readdir");
             exit(1);
@@ -255,6 +269,8 @@ void ls(int flags, string file)
             totes+=ls.st_blocks;
 
         }
+        copy[500]={0};
+        strcpy(copy,dirName);
     }
     closedir(dirp);
     sort(files.begin(), files.end(), locale("en_US.UTF-8"));
@@ -264,26 +280,27 @@ void ls(int flags, string file)
         bl=path.length();
         path.append(files.at(i));
         fl=path.length();
-        if(stat(files[i].c_str(),&ls)==-1)
-        {
-          perror("statll");
-          exit(1);
-        }
+       if( stat(files[i].c_str(),&b)==-1)
+           {
+              perror("stat2");
+              exit(1);
+           }
         if((S_ISDIR(ls.st_mode)&&(files.at(i)!=".")&&(files.at(i)!="..")&&(!(S_ISLNK(ls.st_mode)))))
         {
             dir.push_back(path);
         }
         path.erase(bl,fl);
     }
-   for(vector<int>::size_type i = 0; i != dir.size(); ++i)
+/*   for(vector<int>::size_type i = 0; i != dir.size(); ++i)
     {
         cout<<dir[i]<<" ";
     }
     cout<<endl;
+    cout<<"hello"<<endl;*/
     if(flags==0||flags==1)
     {
         for (vector<int>::size_type i = 0; i != files.size(); ++i)
-        {   
+        {  // int length=80;
             cout << files[i] <<"  ";
 
         }

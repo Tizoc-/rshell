@@ -2,39 +2,14 @@ RSHELL
 ===
 LICENSE INFO
 ---
-Project Source can be downloaded from https://github/Tizoc-/rhsell.git
+Project Source can be downloaded from https://github.com/Tizoc-/rshell.git
 ----
-
-Author & Contributor List
----------------
-Paul Alvarez
-
-File List
---------
-
-Makefile
-
-LICENSE
-
-README
-
-./src
-
-./tests
-
-/src
-
-main.cpp
-
-./tests
-
-exec.script
 
 
 Summary
 ---
-My attempt at my own rshell bash terminal that passes bin commands which supports multiple arguments in commands, comments, and exit from the terminal.
-
+My attempt at my own rshell bash terminal that passes bin commands which supports multiple arguments in commands, comments, and exit from the terminal.This repo also now come with its own ls command that supports diplaying directory contents and information.
+This was accomplished using the stat and opendir readdir and closedir function calls(also one instance of the readlink syscall).
 
 How to run
 ---
@@ -56,6 +31,11 @@ Features
 Able to run mutliple commands with one or more arguments
 able to exit out of shell
 can comment out lines
+ls can display contents of a directory 
+ls can show permissions
+ls can display regular and sybolic link file
+ls can display hiddens files 
+
 
 Bug
 ---
@@ -76,3 +56,12 @@ if a connecter or comment is nest to a command it wont read it
 argument array limited to 100
 
 username and  hostname displayed
+
+Bugs ls
+---
+the recursion and optional file arguments dont work
+
+if nothing is passed then it causes a segmentation fault
+
+symbolic links dont show contets of directory it is pointing to
+
