@@ -1,0 +1,75 @@
+Script started on Tue 11 Nov 2014 11:25:05 PM PST
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ make
+[ -e ./bin ] || mkdir bin
+g++ -Wall -Werror -ansi -pedantic -std=c++11  src/main.cpp -o bin/main 
+g++ -Wall -Werror -ansi -pedantic -std=c++11 src/cp.cpp -o bin/cp
+g++ -Wall -Werror -ansi -pedantic -std=c++11 src/ls.cpp -o bin/ls
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ #passing with no flags or arguments
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ bin/ls
+bin  homelink  LICENSE  ls  Makefile  README.md  src  tests  ]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ 
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ # passing symbolic link with an -l flags[K
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ bin/ls homelink -l
+lrwxrwxrwx  1 paul paul 10 Nov 11 23:09 homelink ->/home/paul 
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ #passing arguments and flags in die[Kfferent ordder
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ #bin/ls src.cp.[K[K[K
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ bin/ls src.[K/cp.cpp -l
+-rwrw-r--  1 paul paul 5698 Nov 11 23:08 src/cp.cpp 
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ bin/ls -la src/cp.cpp
+-rwrw-r--  1 paul paul 5698 Nov 11 23:08 src/cp.cpp 
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ #passing with different flags
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ bin.ls[K[K[K/ls
+bin  homelink  LICENSE  ls  Makefile  README.md  src  tests  ]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ 
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ bin/ls -l
+total: 40
+drwxrwxr-x  2 paul paul 4096 Nov 11 23:25 bin 
+lrwxrwxrwx  1 paul paul 10 Nov 11 23:09 homelink ->/home/paul 
+-rwrw-r--  1 paul paul 18027 Nov 11 23:08 LICENSE 
+-rwrw-r--  1 paul paul 0 Nov 11 23:25 ls 
+-rwrw-r--  1 paul paul 538 Nov 11 23:08 Makefile 
+-rwrw-r--  1 paul paul 1645 Nov 11 23:08 README.md 
+drwxrwxr-x  2 paul paul 4096 Nov 11 23:08 src 
+drwxrwxr-x  2 paul paul 4096 Nov 11 23:24 tests 
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ bin/ls -la
+total: 52
+drwxrwxr-x  6 paul paul 4096 Nov 11 23:25 . 
+drwxr-xr-x  38 paul paul 4096 Nov 11 23:21 .. 
+drwxrwxr-x  2 paul paul 4096 Nov 11 23:25 bin 
+drwxrwxr-x  8 paul paul 4096 Nov 11 23:08 .git 
+lrwxrwxrwx  1 paul paul 10 Nov 11 23:09 homelink ->/home/paul 
+-rwrw-r--  1 paul paul 18027 Nov 11 23:08 LICENSE 
+-rwrw-r--  1 paul paul 0 Nov 11 23:25 ls 
+-rwrw-r--  1 paul paul 538 Nov 11 23:08 Makefile 
+-rwrw-r--  1 paul paul 1645 Nov 11 23:08 README.md 
+drwxrwxr-x  2 paul paul 4096 Nov 11 23:08 src 
+drwxrwxr-x  2 paul paul 4096 Nov 11 23:24 tests 
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ #paassing in different and preapea[K[K[K[K[K[K[Krepeated flags 
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ bin/ls -lala -a -a -l
+total: 52
+drwxrwxr-x  6 paul paul 4096 Nov 11 23:25 . 
+drwxr-xr-x  38 paul paul 4096 Nov 11 23:21 .. 
+drwxrwxr-x  2 paul paul 4096 Nov 11 23:25 bin 
+drwxrwxr-x  8 paul paul 4096 Nov 11 23:08 .git 
+lrwxrwxrwx  1 paul paul 10 Nov 11 23:09 homelink ->/home/paul 
+-rwrw-r--  1 paul paul 18027 Nov 11 23:08 LICENSE 
+-rwrw-r--  1 paul paul 0 Nov 11 23:25 ls 
+-rwrw-r--  1 paul paul 538 Nov 11 23:08 Makefile 
+-rwrw-r--  1 paul paul 1645 Nov 11 23:08 README.md 
+drwxrwxr-x  2 paul paul 4096 Nov 11 23:08 src 
+drwxrwxr-x  2 paul paul 4096 Nov 11 23:24 tests 
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ #multiple arguments n[Kand flags
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ bin/ls src/cp.cpp -ls src/ls.cpp
+-rwrw-r--  1 paul paul 5698 Nov 11 23:08 src/cp.cpp 
+-rwrw-r--  1 paul paul 8326 Nov 11 23:08 src/ls.cpp 
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ #many arguments and flags
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ bin/ls -lalala -a -a -a -l -l -a src/cp,[K.cpp -a src/ls.cpp -l bin/ls
+-rwxrwxr-x  1 paul paul 52493 Nov 11 23:25 bin/ls 
+-rwrw-r--  1 paul paul 5698 Nov 11 23:08 src/cp.cpp 
+-rwrw-r--  1 paul paul 8326 Nov 11 23:08 src/ls.cpp 
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ # ho[K[Ksybolic link wth many [K[K[K[K[Kflags
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ bin/ls homelink -l
+lrwxrwxrwx  1 paul paul 10 Nov 11 23:09 homelink ->/home/paul 
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ bin/ls homelink -a
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ exit
+exit
+
+Script done on Tue 11 Nov 2014 11:32:53 PM PST
