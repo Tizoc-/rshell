@@ -155,7 +155,7 @@ void info(string file )
     struct group *grp=getgrgid(inf.st_gid);
    if(grp==NULL)
 {
-  perror("getgrgid")
+  perror("getgrgid");
 }
     cout<<grp->gr_name<<" ";
     cout<<inf.st_size<<" ";
