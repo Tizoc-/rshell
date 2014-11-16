@@ -9,13 +9,15 @@
 #include <string>
 #include <boost/tokenizer.hpp>
 #include <queue>
+#include <vector>
 using namespace std;
 int main()
 {
     string usr;
     queue<string> arg;
- int count=0;
-int pid;
+    vector<string>arg2;
+    int count=0;
+    int pid;
     std::cout << "Please enter some integers (enter 0 to end):\n";
 
     getline(cin,usr); 
@@ -28,17 +30,18 @@ int pid;
     {
         std::cout << "<" << *tok_iter << "> ";
         arg.push (*tok_iter);
+        arg2.push_back(*tok_iter);
     }
 
 
     char **argv=(char**)alloca(arg.size()+1);
 
     std::cout << "myqueue contains: "<<endl;
-    while (!(arg.empty()))
+    for(unsigned i= 0;i<arg2.size();i++)
     {
-        if(arg.front()==";")
+        if(arg2[i]==";")
         {  arg.pop();
-          argv[count]=NULL;
+            argv[count]=NULL;
             pid=fork();
             if(pid==0)
             {
@@ -66,7 +69,7 @@ int pid;
                 wait(0);
                 for(int i=0;i<count;i++)
                 {
-                  argv[i]==NULL;
+                    argv[i]==NULL;
                 }
                 for(int i =0;i<count;i++)
                 {
@@ -75,12 +78,60 @@ int pid;
                 count=0;
             }
         }
-        else if(arg.front()==">")
-        { cout<<"\nredirect"<<endl;
+        
+        else if(arg2[i]==">"&&arg2[i+1]==">")
+        {
             arg.pop();
+            arg.pop();
+            count++;
             argv[count]=NULL;
             pid = fork();
-            if(pid == -1){
+            if(pid == -1)
+            {
+                perror("fork");
+            }
+            else if(pid == 0)
+            {
+                int fda=open(arg.front().c_str(),O_RDWR|O_CREAT|O_APPEND,0666);
+                if(fda==-1)
+                {
+                    perror("open");
+                    exit(1);
+                }
+                //    int oldstdout=dup(1);
+                close(1);
+                dup(fda);
+                //    cout << "fd=" << fd << endl;
+                if(execvp(argv[0], argv) == -1)
+                {
+                    perror("execvp");
+                    exit(1);
+                } 
+                else
+                {
+                    exit(1);
+                }
+
+            }
+            else
+            {
+                wait(NULL);
+                for(int i=0;i<count;i++)
+                {
+                    argv[i]==NULL;
+                }
+
+            }
+
+        }
+        else if(arg2[i]==">")
+        { cout<<"\nredirect"<<endl;
+            arg.pop();
+            count++;
+            argv[count]=NULL;
+            pid = fork();
+            if(pid == -1)
+            {
                 perror("fork");
             }
             else if(pid == 0)
@@ -92,10 +143,10 @@ int pid;
                     perror("open");
                     exit(1);
                 }
-            //    int oldstdout=dup(1);
+                //    int oldstdout=dup(1);
                 close(1);
                 dup(fd);
-            //    cout << "fd=" << fd << endl;
+                //    cout << "fd=" << fd << endl;
                 if(execvp(argv[0], argv) == -1)
                 {
                     perror("execvp");
@@ -105,9 +156,9 @@ int pid;
                 {
                     exit(1);
                 }
-              //  close(1);
-              //  dup(oldstdout);
-              //  cout << "to the screen" << endl;
+                //  close(1);
+                //  dup(oldstdout);
+                //  cout << "to the screen" << endl;
                 /* cout<<"pid"<<endl;
                    cout<<arg.front()<<endl;
                    cout<<"l"<<endl;
@@ -132,15 +183,6 @@ int pid;
                    cout<<fdo<<endl;*/
 
             }
-            else{
-                wait(NULL);
-                for(int i=0;i<count;i++)
-                {
-                    argv[i]==NULL;
-                }
-
-            }
-
         }
         else
         {
@@ -148,9 +190,10 @@ int pid;
             argv[count] = (char*)alloca(arg.front().size()+1);
             strcpy(argv[count],arg.front().c_str());
             arg.pop();
-            count++;
+            count==i;
         }
     }
+    count++;
     argv[count]=NULL;
     for(int i =0;i<count;i++)
     {
