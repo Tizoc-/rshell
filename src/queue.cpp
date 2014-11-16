@@ -16,7 +16,7 @@ int main()
     string usr;
     queue<string> arg;
     vector<string>arg2;
-    int count=0;
+    unsigned count=0;
     int pid;
     std::cout << "Please enter some integers (enter 0 to end):\n";
 
@@ -39,6 +39,9 @@ int main()
     std::cout << "myqueue contains: "<<endl;
     for(unsigned i= 0;i<arg2.size();i++)
     {
+        cout<<arg2[i]<<endl;
+        cout<<arg.front()<<endl;
+        cout<<i<<endl;
         if(arg2[i]==";")
         {  arg.pop();
             argv[count]=NULL;
@@ -83,8 +86,10 @@ int main()
         {
             arg.pop();
             arg.pop();
+            cout<<arg.front()<<endl;
             count++;
             argv[count]=NULL;
+            cout<<"append"<<endl;
             pid = fork();
             if(pid == -1)
             {
@@ -124,7 +129,7 @@ int main()
             }
 
         }
-        else if(arg2[i]==">")
+        else if(arg2[i]==">"&&arg2[i-1]!=">")
         { cout<<"\nredirect"<<endl;
             arg.pop();
             count++;
@@ -184,16 +189,22 @@ int main()
 
             }
         }
+        else if(arg2[i]=="<")
+        {
+
+        }
         else
         {
-            std::cout << ' ' << arg.front();
+            std::cout << ' ' << arg.front()<<' ';
+            count=i;
             argv[count] = (char*)alloca(arg.front().size()+1);
             strcpy(argv[count],arg.front().c_str());
             arg.pop();
-            count==i;
+            cout<<count<<endl;
         }
     }
     count++;
+    cout<<count<<endl;
     argv[count]=NULL;
     for(int i =0;i<count;i++)
     {
