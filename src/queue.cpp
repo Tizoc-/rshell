@@ -17,6 +17,7 @@ int main()
     string usr;
     queue<string> arg;
     vector<string>arg2;
+    bool redir=false;
     unsigned count=0;
     int pid;
     struct passwd *pass;
@@ -32,7 +33,8 @@ int main()
     }
     string hostname(host);
     delete[] host;
-    cout<<login<<"@"<<hostname<<" ";//<<success;
+    while(1){
+    cout<<login<<"@"<<hostname<<" ";
     getline(cin,usr); 
     typedef boost::tokenizer<boost::char_separator<char> > 
         tokenizer;
@@ -44,6 +46,10 @@ int main()
         std::cout << "<" << *tok_iter << "> ";
         arg.push (*tok_iter);
         arg2.push_back(*tok_iter);
+    }
+    if(arg2[0]=="exit")
+    {
+        exit(1);
     }
 
 
@@ -123,10 +129,12 @@ int main()
                if( close(1)==-1)
                {
                  perror("close");
+                 exit(1);
                }
                if( dup(fda)==-1)
                {
                  perror("dup");
+                 exit(1);
                }
                 //    cout << "fd=" << fd << endl;
                 if(execvp(argv[0], argv) == -1)
@@ -143,7 +151,7 @@ int main()
                 {
                     argv[i]==NULL;
                 }
-
+                redir==true;
             }
 
         }
@@ -160,6 +168,7 @@ int main()
             }
             else if(pid == 0)
             {
+                cout<<"kshdj"<<endl;
 
                 int fd=open(arg.front().c_str(),O_RDWR|O_CREAT,0666);
                 if(fd==-1)
@@ -168,6 +177,7 @@ int main()
                     exit(1);
                 }
                 //    int oldstdout=dup(1);
+                cout<<"dshjb"<<endl;
                if( close(1)==-1)
                 {
                    perror("close");
@@ -176,8 +186,9 @@ int main()
                {
                 perror("dup");
                }
-                //    cout << "fd=" << fd << endl;
-                if(execvp(argv[0], argv) == -1)
+               cout<<"hehehe"<<endl;
+                   cout << "fd=" << fd << endl;
+               if(execvp(argv[0], argv) == -1)
                 {
                     perror("execvp");
                     exit(1);
@@ -190,12 +201,14 @@ int main()
                 for(int j=0;j<count;j++)
                 {
                     cout<<"work";
-                    strcpy(argv[j],NULL);
+                    strcpy(argv[j],"");
                 }
                 for(int j=0;j<count;j++)
                 {
                     cout<<argv[j];
                 }
+                redir=true;
+                
             }
         }
         else if(arg2[i]=="<")
@@ -242,10 +255,11 @@ int main()
             else
             {
                 wait(NULL);
-                for(int i=0;i<count;i++)
+             /*   for(int i=0;i<count;i++)
                 {
                    strcpy( argv[i],NULL);
-                }
+                }*/
+                redir==true;
 
             }
         }
@@ -287,7 +301,7 @@ int main()
         cout<<argv[i];
     }
     cout<<argv[0];
-    if(argv[0]!=NULL)
+    if(redir==false)
     {
         cout<<"why"<<endl;
         pid=fork();
@@ -312,6 +326,7 @@ int main()
         }
 
         std::cout << '\n';
+    }
     }
     return 0;
 
