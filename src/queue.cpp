@@ -120,18 +120,20 @@ int main()
                     exit(1);
                 }
                 //    int oldstdout=dup(1);
-                close(1);
-                dup(fda);
+               if( close(1)==-1)
+               {
+                 perror("close");
+               }
+               if( dup(fda)==-1)
+               {
+                 perror("dup");
+               }
                 //    cout << "fd=" << fd << endl;
                 if(execvp(argv[0], argv) == -1)
                 {
                     perror("execvp");
                     exit(1);
                 } 
-                else
-                {
-                    exit(1);
-                }
 
             }
             else
@@ -148,6 +150,7 @@ int main()
         else if(arg2[i]==">"&&arg2[i-1]!=">")
         { cout<<"\nredirect"<<endl;
             arg.pop();
+            cout<<arg.front()<<endl;
             count++;
             argv[count]=NULL;
             pid = fork();
@@ -165,19 +168,34 @@ int main()
                     exit(1);
                 }
                 //    int oldstdout=dup(1);
-                close(1);
-                dup(fd);
+               if( close(1)==-1)
+                {
+                   perror("close");
+                }
+               if( dup(fd)==-1)
+               {
+                perror("dup");
+               }
                 //    cout << "fd=" << fd << endl;
                 if(execvp(argv[0], argv) == -1)
                 {
                     perror("execvp");
                     exit(1);
                 } 
-                else
-                {
-                    exit(1);
-                }
 
+            }
+            else
+            {
+                wait(NULL);
+                for(int j=0;j<count;j++)
+                {
+                    cout<<"work";
+                    strcpy(argv[j],NULL);
+                }
+                for(int j=0;j<count;j++)
+                {
+                    cout<<argv[j];
+                }
             }
         }
         else if(arg2[i]=="<")
@@ -226,7 +244,7 @@ int main()
                 wait(NULL);
                 for(int i=0;i<count;i++)
                 {
-                    argv[i]==NULL;
+                   strcpy( argv[i],NULL);
                 }
 
             }
@@ -250,15 +268,15 @@ int main()
 
 
             }
-            else
-            {
-                std::cout << ' ' << arg.front()<<' ';
-                count=i;
-                argv[count] = (char*)alloca(arg.front().size()+1);
-                strcpy(argv[count],arg.front().c_str());
-                arg.pop();
-                cout<<count<<endl;
-            }
+        }
+        else
+        {
+            std::cout << ' ' << arg.front()<<' ';
+            count=i;
+            argv[count] = (char*)alloca(arg.front().size()+1);
+            strcpy(argv[count],arg.front().c_str());
+            arg.pop();
+            cout<<count<<endl;
         }
     }
     count++;
@@ -268,29 +286,33 @@ int main()
     {
         cout<<argv[i];
     }
-    pid=fork();
-    if(pid==0)
+    cout<<argv[0];
+    if(argv[0]!=NULL)
     {
-        if(execvp(argv[0],argv)==-1)
+        cout<<"why"<<endl;
+        pid=fork();
+        if(pid==0)
         {
-            perror("execvp");
+            if(execvp(argv[0],argv)==-1)
+            {
+                perror("execvp");
+            }
+            else
+            {
+                exit(1);
+            }
+        }
+        else if (pid <0)
+        {
+            perror("fork function failed");
         }
         else
         {
-            exit(1);
+            wait(0);
         }
-    }
-    else if (pid <0)
-    {
-        perror("fork function failed");
-    }
-    else
-    {
-        wait(0);
-    }
 
-    std::cout << '\n';
-
+        std::cout << '\n';
+    }
     return 0;
 
 }
