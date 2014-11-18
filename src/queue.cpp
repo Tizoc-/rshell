@@ -1,4 +1,5 @@
 #include <iostream>
+#include <pwd.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <sys/types.h>
@@ -18,8 +19,20 @@ int main()
     vector<string>arg2;
     unsigned count=0;
     int pid;
-    std::cout << "Please enter some integers (enter 0 to end):\n";
-
+    struct passwd *pass;
+    pass = getpwuid(getuid());
+    if(pass == NULL){
+        perror("getpwuid()");
+    }
+    string login(pass->pw_name);
+    char *host = new char[100];
+    if( gethostname(host,30)==-1)
+    {
+        perror("gethostname");
+    }
+    string hostname(host);
+    delete[] host;
+    cout<<login<<"@"<<hostname<<" ";//<<success;
     getline(cin,usr); 
     typedef boost::tokenizer<boost::char_separator<char> > 
         tokenizer;
@@ -81,7 +94,10 @@ int main()
                 count=0;
             }
         }
-        
+        else if(arg2[i]=="exit")
+        {
+            exit(1);
+        }
         else if(arg2[i]==">"&&arg2[i+1]==">")
         {
             arg.pop();
@@ -161,46 +177,88 @@ int main()
                 {
                     exit(1);
                 }
-                //  close(1);
-                //  dup(oldstdout);
-                //  cout << "to the screen" << endl;
-                /* cout<<"pid"<<endl;
-                   cout<<arg.front()<<endl;
-                   cout<<"l"<<endl;
-                   int fdo = open("testfile", O_RDWR|O_CREAT,0666);
-
-                   cout << "fdo: " << fdo << endl;
-                   if(fdo == -1)
-
-                   int oldstout=dup(1);
-                   if(oldstout==-1)
-                   {
-                   perror("dup");
-                   }
-                   if(close(1) == -1 )
-                   {
-                   perror("close");
-                   }
-                   if(dup(fdo) == -1)
-                   {
-                   perror("dup");
-                   }
-                   cout<<fdo<<endl;*/
 
             }
         }
         else if(arg2[i]=="<")
         {
-
-        }
-        else
-        {
-            std::cout << ' ' << arg.front()<<' ';
+            cout<<"stdin"<<endl;
+            arg.pop();
+            cout<<arg.front();
             count=i;
+            cout<<count<<endl;
             argv[count] = (char*)alloca(arg.front().size()+1);
             strcpy(argv[count],arg.front().c_str());
-            arg.pop();
-            cout<<count<<endl;
+            count ++;
+            argv[count]=NULL;
+            int fdi=open(arg.front().c_str(),O_RDONLY);
+            if(fdi==-1)
+            {
+                perror("open");
+            }
+            if(close(0)==-1);
+            {
+                perror("close");
+            }
+            dup(fdi);
+            pid = fork();
+            if(pid == -1)
+            {
+                perror("fork");
+            }
+            else if(pid == 0)
+            {
+
+                if(execvp(argv[0], argv) == -1)
+                {
+                    perror("execvp");
+                    exit(1);
+                } 
+                else
+                {
+                    exit(1);
+
+                }
+
+            }
+            else
+            {
+                wait(NULL);
+                for(int i=0;i<count;i++)
+                {
+                    argv[i]==NULL;
+                }
+
+            }
+        }
+        else if(arg2[i]=="|")
+        {
+            int fd[2];
+            if(pipe(fd)==-1)
+            {
+                perror("pipe");
+            }
+            int pip=fork();
+            if(pip==-1)
+            {
+                perror("fork");
+            }
+            else if(pip==0)
+            { 
+                dup2(fd[0],0);
+                close(fd[1]);
+
+
+            }
+            else
+            {
+                std::cout << ' ' << arg.front()<<' ';
+                count=i;
+                argv[count] = (char*)alloca(arg.front().size()+1);
+                strcpy(argv[count],arg.front().c_str());
+                arg.pop();
+                cout<<count<<endl;
+            }
         }
     }
     count++;
