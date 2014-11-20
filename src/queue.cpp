@@ -15,7 +15,7 @@
 #include <vector>
 using namespace std;
 void argcom(queue<string> & arg,queue<string> & args,int count,char ** & argv);
-void execute(queue<string>&args,queue<string>&arg,int count,bool outr,bool inR,bool pip );
+void execute(queue<string>&args,queue<string>&arg,int count,bool outr,bool inR,bool pip,char **&argv );
 int main()
 {
     string usr;
@@ -73,12 +73,13 @@ int main()
             {
                 cout<<"dwwee"<<endl;
                 arg.pop();
+                cout<<arg.front()<<endl;
                 outr=true;
                 if(outr==true)
                 {
                     cout<<"sasawqw";
                 }
-                execute(args,arg,count,outr,inR,pip);
+                execute(args,arg,count,outr,inR,pip,argv);
             } 
             else if(arg.front()=="<")
             {
@@ -86,7 +87,7 @@ int main()
                 arg.pop();
                 cout<<arg.front();
                 inR=true;
-                execute(args,arg,count,outr,inR,pip);
+                execute(args,arg,count,outr,inR,pip,argv);
 
             }
             else if(arg.front()=="2")
@@ -95,23 +96,9 @@ int main()
             }
             else if(arg.front()=="|")
             {
-                int fd[2];
-                if(pipe(fd)==-1)
-                {
-                    perror("pipe");
-                }
-                int pip=fork();
-                if(pip==-1)
-                {
-                    perror("fork");
-                }
-                else if(pip==0)
-                { 
-                    dup2(fd[0],0);
-                    close(fd[1]);
-
-
-                }
+                arg.pop();
+                pip=true;
+                execute(args,arg,count,outr,inR,pip,argv);
             }
             else
             {
@@ -138,8 +125,8 @@ void argcom(queue<string> & arg,queue<string> & args,int count,char ** & argv)
     argv[num]=NULL;
 
 }
-void execute(queue<string>&args,queue<string>&arg,int count,bool outr,bool inR,bool pip)
-{  
+void execute(queue<string>&args,queue<string>&arg,int count,bool outr,bool inR,bool pip,char **&argv)
+{   int piip;
     int oor;
     int ii;
     int fd[2];
@@ -148,9 +135,13 @@ void execute(queue<string>&args,queue<string>&arg,int count,bool outr,bool inR,b
     {
         oor=1;
     }
-    if(inR=true)
+    if(inR==true)
     {
-       ii=0;
+        ii=0;
+    }
+    if(pip==true)
+    {
+      piip=3;
     }
     cout<<count<<endl;
     int pid= fork();
@@ -164,17 +155,21 @@ void execute(queue<string>&args,queue<string>&arg,int count,bool outr,bool inR,b
         cout<<count<<endl;
         if(ii==0)
         {
+
             cout<<count;
-            int fdi=open("ls",O_RDONLY);
-            if(fdi==-1)
+            if(arg.front()!="<")
             {
-                perror("open");
-                exit(1);
-            } 
-            if (dup2(fdi, 0) == -1)
-            {
-                perror("dup2");
-                exit(1);
+                int fdi=open(arg.front().c_str(),O_RDONLY);
+                if(fdi==-1)
+                {
+                    perror("open");
+                    exit(1);
+                } 
+                if (dup2(fdi, 0) == -1)
+                {
+                    perror("dup2");
+                    exit(1);
+                }
             }
             arg.pop();
             cout<<arg.front();
@@ -183,13 +178,18 @@ void execute(queue<string>&args,queue<string>&arg,int count,bool outr,bool inR,b
                 oor=1;
                 arg.pop();
             }
+            if(arg.front()=="|")
+            {
+             piip=3;  
+             arg.pop();
+            }
         }
         cout<<oor<<endl;
         if(oor==1)
-        {
+        {   cout<<arg.front();
             if(arg.front()!=">")
             {
-                int fdo=open("s",O_RDWR|O_CREAT,0666);
+                int fdo=open(arg.front().c_str(),O_RDWR|O_CREAT,0666);
                 if(fdo==-1)
                 {
                     perror("open");
@@ -205,7 +205,7 @@ void execute(queue<string>&args,queue<string>&arg,int count,bool outr,bool inR,b
             if(arg.front()==">")
             {
                 arg.pop();
-                int fda=open("s",O_RDWR|O_CREAT|O_APPEND,0666);
+                int fda=open(arg.front().c_str(),O_RDWR|O_CREAT|O_APPEND,0666);
                 if(fda==-1)
                 {
                     perror("open");
@@ -220,7 +220,13 @@ void execute(queue<string>&args,queue<string>&arg,int count,bool outr,bool inR,b
 
             }
         }
-        execlp("cat" ,"cat" ,NULL);
+        if(piip==3)
+        {
+                dup2(fd[1],1);
+                close(fd[0]);
+        }
+        argcom(arg,args,count,argv);
+        execvp(argv[0] ,argv);
         exit(1);
 
 
@@ -232,5 +238,7 @@ void execute(queue<string>&args,queue<string>&arg,int count,bool outr,bool inR,b
         {
             perror("wait");
         }
+      //  dup2(fd[0],0);   /* make stdout same as pfds[1] */
+       //          execlp("grep", "grep", "a",NULL);
     }
 }
