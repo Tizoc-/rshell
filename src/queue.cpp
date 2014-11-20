@@ -180,23 +180,43 @@ void execute(queue<string>&args,queue<string>&arg,int count,bool outr,bool inR,b
             cout<<arg.front();
             if(arg.front()==">")
             {
-              oor=1;
-              arg.pop();
+                oor=1;
+                arg.pop();
             }
         }
         cout<<oor<<endl;
         if(oor==1)
         {
-            int fdo=open("s",O_RDWR|O_CREAT,0666);
-            if(fdo==-1)
+            if(arg.front()!=">")
             {
-                perror("open");
-                exit(1);
+                int fdo=open("s",O_RDWR|O_CREAT,0666);
+                if(fdo==-1)
+                {
+                    perror("open");
+                    exit(1);
+                }
+                if (dup2(fdo, 1) == -1)
+                {
+                    perror("dup2");
+                    exit(1);
+
+                }
             }
-            if (dup2(fdo, 1) == -1)
+            if(arg.front()==">")
             {
-                perror("dup2");
-                exit(1);
+                arg.pop();
+                int fda=open("s",O_RDWR|O_CREAT|O_APPEND,0666);
+                if(fda==-1)
+                {
+                    perror("open");
+                    exit(1);
+                }
+                if (dup2(fda, 1) == -1)
+                {
+                    perror("dup2");
+                    exit(1);
+
+                }
 
             }
         }
