@@ -1,4 +1,6 @@
 #include <iostream>
+#include <errno.h>
+#include <fstream>
 #include <pwd.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -12,14 +14,18 @@
 #include <queue>
 #include <vector>
 using namespace std;
+void argcom(queue<string> & arg,queue<string> & args,int count,char ** & argv);
+void execute(queue<string>&args,queue<string>&arg,int count,bool outr,bool inR,bool pip );
 int main()
 {
     string usr;
     queue<string> arg;
-    vector<string>arg2;
-    bool redir=false;
-    unsigned count=0;
-    int pid;
+
+    queue<string>args;
+    char **argv=NULL;
+    bool outr=false;
+    bool inR=false;
+    bool pip=false;
     struct passwd *pass;
     pass = getpwuid(getuid());
     if(pass == NULL){
@@ -34,300 +40,177 @@ int main()
     string hostname(host);
     delete[] host;
     while(1){
-    cout<<login<<"@"<<hostname<<" ";
-    getline(cin,usr); 
-    typedef boost::tokenizer<boost::char_separator<char> > 
-        tokenizer;
-    boost::char_separator<char> sep(" ", ";&|<>");
-    tokenizer tokens(usr, sep);
-    for (tokenizer::iterator tok_iter = tokens.begin();
-            tok_iter != tokens.end(); ++tok_iter)
-    {
-        std::cout << "<" << *tok_iter << "> ";
-        arg.push (*tok_iter);
-        arg2.push_back(*tok_iter);
-    }
-    if(arg2[0]=="exit")
-    {
-        exit(1);
-    }
-
-
-    char **argv=(char**)alloca(arg.size()+1);
-
-    std::cout << "myqueue contains: "<<endl;
-    for(unsigned i= 0;i<arg2.size();i++)
-    {
-        cout<<arg2[i]<<endl;
-        cout<<arg.front()<<endl;
-        cout<<i<<endl;
-        if(arg2[i]==";")
-        {  arg.pop();
-            argv[count]=NULL;
-            pid=fork();
-            if(pid==0)
-            {
-                for(int i =0;i<count;i++)
-                {
-                    cout<<argv[i]<<endl;
-                } 
-                if(execvp(argv[0],argv)==-1)
-                {
-                    perror("execvp");
-                    exit(1);
-                }
-                else
-                {
-                    exit(1);
-                }
-            }
-            else if (pid <0)
-            {
-                perror("fork function failed");
-                exit(1);
-            }
-            else
-            {
-                wait(0);
-                for(int i=0;i<count;i++)
-                {
-                    argv[i]==NULL;
-                }
-                for(int i =0;i<count;i++)
-                {
-                    cout<<argv[i]<<endl;
-                }
-                count=0;
-            }
+        cout<<login<<"@"<<hostname<<":~$ ";
+        getline(cin,usr); 
+        typedef boost::tokenizer<boost::char_separator<char> > 
+            tokenizer;
+        boost::char_separator<char> sep(" ", ";&|<>");
+        tokenizer tokens(usr, sep);
+        for (tokenizer::iterator tok_iter = tokens.begin();
+                tok_iter != tokens.end(); ++tok_iter)
+        {
+            std::cout << "<" << *tok_iter << "> ";
+            arg.push (*tok_iter);
         }
-        else if(arg2[i]=="exit")
+        if(arg.front()=="exit")
         {
             exit(1);
         }
-        else if(arg2[i]==">"&&arg2[i+1]==">")
+        int count=0;
+        cout << "myqueue contains: "<<endl;
+        while(!arg.empty())
         {
-            arg.pop();
-            arg.pop();
-            cout<<arg.front()<<endl;
-            count++;
-            argv[count]=NULL;
-            cout<<"append"<<endl;
-            pid = fork();
-            if(pid == -1)
-            {
-                perror("fork");
-            }
-            else if(pid == 0)
-            {
-                int fda=open(arg.front().c_str(),O_RDWR|O_CREAT|O_APPEND,0666);
-                if(fda==-1)
-                {
-                    perror("open");
-                    exit(1);
-                }
-                //    int oldstdout=dup(1);
-               if( close(1)==-1)
-               {
-                 perror("close");
-                 exit(1);
-               }
-               if( dup(fda)==-1)
-               {
-                 perror("dup");
-                 exit(1);
-               }
-                //    cout << "fd=" << fd << endl;
-                if(execvp(argv[0], argv) == -1)
-                {
-                    perror("execvp");
-                    exit(1);
-                } 
-
-            }
-            else
-            {
-                wait(NULL);
-                for(int i=0;i<count;i++)
-                {
-                    argv[i]==NULL;
-                }
-                redir==true;
-            }
-
-        }
-        else if(arg2[i]==">"&&arg2[i-1]!=">")
-        { cout<<"\nredirect"<<endl;
-            arg.pop();
-            cout<<arg.front()<<endl;
-            count++;
-            argv[count]=NULL;
-            pid = fork();
-            if(pid == -1)
-            {
-                perror("fork");
-            }
-            else if(pid == 0)
-            {
-                cout<<"kshdj"<<endl;
-
-                int fd=open(arg.front().c_str(),O_RDWR|O_CREAT,0666);
-                if(fd==-1)
-                {
-                    perror("open");
-                    exit(1);
-                }
-                //    int oldstdout=dup(1);
-                cout<<"dshjb"<<endl;
-               if( close(1)==-1)
-                {
-                   perror("close");
-                }
-               if( dup(fd)==-1)
-               {
-                perror("dup");
-               }
-               cout<<"hehehe"<<endl;
-                   cout << "fd=" << fd << endl;
-               if(execvp(argv[0], argv) == -1)
-                {
-                    perror("execvp");
-                    exit(1);
-                } 
-
-            }
-            else
-            {
-                wait(NULL);
-                for(int j=0;j<count;j++)
-                {
-                    cout<<"work";
-                    strcpy(argv[j],"");
-                }
-                for(int j=0;j<count;j++)
-                {
-                    cout<<argv[j];
-                }
-                redir=true;
-                
-            }
-        }
-        else if(arg2[i]=="<")
-        {
-            cout<<"stdin"<<endl;
-            arg.pop();
-            cout<<arg.front();
-            count=i;
-            cout<<count<<endl;
-            argv[count] = (char*)alloca(arg.front().size()+1);
-            strcpy(argv[count],arg.front().c_str());
-            count ++;
-            argv[count]=NULL;
-            int fdi=open(arg.front().c_str(),O_RDONLY);
-            if(fdi==-1)
-            {
-                perror("open");
-            }
-            if(close(0)==-1);
-            {
-                perror("close");
-            }
-            dup(fdi);
-            pid = fork();
-            if(pid == -1)
-            {
-                perror("fork");
-            }
-            else if(pid == 0)
-            {
-
-                if(execvp(argv[0], argv) == -1)
-                {
-                    perror("execvp");
-                    exit(1);
-                } 
-                else
-                {
-                    exit(1);
-
-                }
-
-            }
-            else
-            {
-                wait(NULL);
-             /*   for(int i=0;i<count;i++)
-                {
-                   strcpy( argv[i],NULL);
-                }*/
-                redir==true;
-
-            }
-        }
-        else if(arg2[i]=="|")
-        {
-            int fd[2];
-            if(pipe(fd)==-1)
-            {
-                perror("pipe");
-            }
-            int pip=fork();
-            if(pip==-1)
-            {
-                perror("fork");
-            }
-            else if(pip==0)
-            { 
-                dup2(fd[0],0);
-                close(fd[1]);
+            if(arg.front()==";")
+            {  
 
 
             }
-        }
-        else
-        {
-            std::cout << ' ' << arg.front()<<' ';
-            count=i;
-            argv[count] = (char*)alloca(arg.front().size()+1);
-            strcpy(argv[count],arg.front().c_str());
-            arg.pop();
-            cout<<count<<endl;
-        }
-    }
-    count++;
-    cout<<count<<endl;
-    argv[count]=NULL;
-    for(int i =0;i<count;i++)
-    {
-        cout<<argv[i];
-    }
-    cout<<argv[0];
-    if(redir==false)
-    {
-        cout<<"why"<<endl;
-        pid=fork();
-        if(pid==0)
-        {
-            if(execvp(argv[0],argv)==-1)
-            {
-                perror("execvp");
-            }
-            else
+            else if(arg.front()=="exit")
             {
                 exit(1);
             }
-        }
-        else if (pid <0)
-        {
-            perror("fork function failed");
-        }
-        else
-        {
-            wait(0);
-        }
+            else if(arg.front()==">")
+            {
+                cout<<"dwwee"<<endl;
+                arg.pop();
+                outr=true;
+                if(outr==true)
+                {
+                    cout<<"sasawqw";
+                }
+                execute(args,arg,count,outr,inR,pip);
+            } 
+            else if(arg.front()=="<")
+            {
+                cout<<"dsrrh"<<endl;
+                arg.pop();
+                cout<<arg.front();
+                inR=true;
+                execute(args,arg,count,outr,inR,pip);
 
-        std::cout << '\n';
-    }
+            }
+            else if(arg.front()=="2")
+            {
+
+            }
+            else if(arg.front()=="|")
+            {
+                int fd[2];
+                if(pipe(fd)==-1)
+                {
+                    perror("pipe");
+                }
+                int pip=fork();
+                if(pip==-1)
+                {
+                    perror("fork");
+                }
+                else if(pip==0)
+                { 
+                    dup2(fd[0],0);
+                    close(fd[1]);
+
+
+                }
+            }
+            else
+            {
+                args.push(arg.front());
+                arg.pop();
+                count++;
+            }
+        }
     }
     return 0;
+}
+void argcom(queue<string> & arg,queue<string> & args,int count,char ** & argv)
+{
+    int num=0;
+    argv=new char*[count];
+    cout<<"l";
+    for(int i=0;i<count;i++)
+    {
+        argv[i]=new char[args.size()+1];
+        strcpy(argv[i],args.front().c_str());
+        num=i;
+    }
+    num++;
+    argv[num]=NULL;
 
+}
+void execute(queue<string>&args,queue<string>&arg,int count,bool outr,bool inR,bool pip)
+{  
+    int oor;
+    int ii;
+    int fd[2];
+    pipe(fd);
+    if(outr==true)
+    {
+        oor=1;
+    }
+    if(inR=true)
+    {
+       ii=0;
+    }
+    cout<<count<<endl;
+    int pid= fork();
+    if(pid == -1)
+    {
+        perror("fork");
+    }
+    else if(pid == 0)
+    {     
+        cout<<oor<<endl;
+        cout<<count<<endl;
+        if(ii==0)
+        {
+            cout<<count;
+            int fdi=open("ls",O_RDONLY);
+            if(fdi==-1)
+            {
+                perror("open");
+                exit(1);
+            } 
+            if (dup2(fdi, 0) == -1)
+            {
+                perror("dup2");
+                exit(1);
+            }
+            arg.pop();
+            cout<<arg.front();
+            if(arg.front()==">")
+            {
+              oor=1;
+              arg.pop();
+            }
+        }
+        cout<<oor<<endl;
+        if(oor==1)
+        {
+            int fdo=open("s",O_RDWR|O_CREAT,0666);
+            if(fdo==-1)
+            {
+                perror("open");
+                exit(1);
+            }
+            if (dup2(fdo, 1) == -1)
+            {
+                perror("dup2");
+                exit(1);
+
+            }
+        }
+        execlp("cat" ,"cat" ,NULL);
+        exit(1);
+
+
+    }
+    else 
+    {
+        wait(0);
+        if(errno!=0)
+        {
+            perror("wait");
+        }
+    }
 }
