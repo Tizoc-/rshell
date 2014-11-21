@@ -68,3 +68,13 @@ symbolic links dont show contets of directory it is pointing to
 not all combinations of flags work with symobilic links
 
 not formatted properly
+
+Bug io
+---
+after running any number of io redirections the regular bash commands such as cat, ls ,pwd without redirection doesnt not work
+
+piping doesnt work
+
+when more that one of the io redirection on the first one is taken into account
+
+passing in nothing causes segmentation fault

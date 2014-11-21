@@ -1,0 +1,582 @@
+Script started on Thu 20 Nov 2014 11:21:20 PM PST
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ # ouput redirection
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ make
+[ -e ./bin ] || mkdir bin
+g++ -Wall -Werror -ansi -pedantic -std=c++11  src/rshell.cpp -o bin/rshell
+g++ -Wall -Werror -ansi -pedantic -std=c++11 src/cp.cpp -o bin/cp
+g++ -Wall -Werror -ansi -pedantic -std=c++11 src/ls.cpp -o bin/ls
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ bin/rshell
+paul@Tizoc-220-1125:~$ ls > te
+paul@Tizoc-220-1125:~$ ls > k
+paul@Tizoc-220-1125:~$ s   ls -l > t
+paul@Tizoc-220-1125:~$ ^C
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ cat te
+bin
+io
+l
+LICENSE
+Makefile
+out
+q
+README.md
+src
+te
+tests
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ cat k
+bin
+io
+k
+l
+LICENSE
+Makefile
+out
+q
+README.md
+src
+te
+tests
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ cat t
+total 60
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:21 bin
+-rw-rw-r-- 1 paul paul     0 Nov 20 23:21 io
+-rw-rw-r-- 1 paul paul    57 Nov 20 23:22 k
+-rw-rw-r-- 1 paul paul    47 Nov 20 23:15 l
+-rw-rw-r-- 1 paul paul 18027 Nov 20 23:09 LICENSE
+-rw-rw-r-- 1 paul paul   542 Nov 20 23:09 Makefile
+-rw-rw-r-- 1 paul paul    54 Nov 20 23:13 out
+-rw-rw-r-- 1 paul paul   584 Nov 20 23:17 q
+-rw-rw-r-- 1 paul paul  1727 Nov 20 23:09 README.md
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:16 src
+-rw-rw-r-- 1 paul paul     0 Nov 20 23:22 t
+-rw-rw-r-- 1 paul paul    55 Nov 20 23:22 te
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:09 tests
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ #appending to files
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ bin/rshell
+paul@Tizoc-220-1125:~$ ls >> te
+paul@Tizoc-220-1125:~$ ls >>k
+paul@Tizoc-220-1125:~$ ls -a>>t
+paul@Tizoc-220-1125:~$ ^C
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ cat te
+bin
+io
+l
+LICENSE
+Makefile
+out
+q
+README.md
+src
+te
+tests
+bin
+io
+k
+l
+LICENSE
+Makefile
+out
+q
+README.md
+src
+t
+te
+tests
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ cat k
+bin
+io
+k
+l
+LICENSE
+Makefile
+out
+q
+README.md
+src
+te
+tests
+bin
+io
+k
+l
+LICENSE
+Makefile
+out
+q
+README.md
+src
+t
+te
+tests
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ cat t
+total 60
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:21 bin
+-rw-rw-r-- 1 paul paul     0 Nov 20 23:21 io
+-rw-rw-r-- 1 paul paul    57 Nov 20 23:22 k
+-rw-rw-r-- 1 paul paul    47 Nov 20 23:15 l
+-rw-rw-r-- 1 paul paul 18027 Nov 20 23:09 LICENSE
+-rw-rw-r-- 1 paul paul   542 Nov 20 23:09 Makefile
+-rw-rw-r-- 1 paul paul    54 Nov 20 23:13 out
+-rw-rw-r-- 1 paul paul   584 Nov 20 23:17 q
+-rw-rw-r-- 1 paul paul  1727 Nov 20 23:09 README.md
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:16 src
+-rw-rw-r-- 1 paul paul     0 Nov 20 23:22 t
+-rw-rw-r-- 1 paul paul    55 Nov 20 23:22 te
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:09 tests
+.
+..
+bin
+.git
+io
+k
+l
+LICENSE
+Makefile
+out
+q
+README.md
+src
+t
+te
+tests
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ # out redirection with sapces
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ bin/rh[Kshell
+paul@Tizoc-220-1125:~$ ls       >               c
+paul@Tizoc-220-1125:~$ ls -l       -l      >>      c
+paul@Tizoc-220-1125:~$ ^C
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ cat c
+bin
+c
+io
+k
+l
+LICENSE
+Makefile
+out
+q
+README.md
+src
+t
+te
+tests
+total 68
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:21 bin
+-rw-rw-r-- 1 paul paul    61 Nov 20 23:25 c
+-rw-rw-r-- 1 paul paul     0 Nov 20 23:21 io
+-rw-rw-r-- 1 paul paul   116 Nov 20 23:24 k
+-rw-rw-r-- 1 paul paul    47 Nov 20 23:15 l
+-rw-rw-r-- 1 paul paul 18027 Nov 20 23:09 LICENSE
+-rw-rw-r-- 1 paul paul   542 Nov 20 23:09 Makefile
+-rw-rw-r-- 1 paul paul    54 Nov 20 23:13 out
+-rw-rw-r-- 1 paul paul   584 Nov 20 23:17 q
+-rw-rw-r-- 1 paul paul  1727 Nov 20 23:09 README.md
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:16 src
+-rw-rw-r-- 1 paul paul   683 Nov 20 23:24 t
+-rw-rw-r-- 1 paul paul   114 Nov 20 23:24 te
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:09 tests
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ # out [Krider[K[K[K[K[Kredirection wit[K[K[Kmixed with out 
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ #input redirection w[Kmixed with output redirection
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ bin/rshell
+paul@Tizoc-220-1125:~$ cat <c> te
+paul@Tizoc-220-1125:~$ ^C
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ cat te
+bin
+c
+io
+k
+l
+LICENSE
+Makefile
+out
+q
+README.md
+src
+t
+te
+tests
+total 68
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:21 bin
+-rw-rw-r-- 1 paul paul    61 Nov 20 23:25 c
+-rw-rw-r-- 1 paul paul     0 Nov 20 23:21 io
+-rw-rw-r-- 1 paul paul   116 Nov 20 23:24 k
+-rw-rw-r-- 1 paul paul    47 Nov 20 23:15 l
+-rw-rw-r-- 1 paul paul 18027 Nov 20 23:09 LICENSE
+-rw-rw-r-- 1 paul paul   542 Nov 20 23:09 Makefile
+-rw-rw-r-- 1 paul paul    54 Nov 20 23:13 out
+-rw-rw-r-- 1 paul paul   584 Nov 20 23:17 q
+-rw-rw-r-- 1 paul paul  1727 Nov 20 23:09 README.md
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:16 src
+-rw-rw-r-- 1 paul paul   683 Nov 20 23:24 t
+-rw-rw-r-- 1 paul paul   114 Nov 20 23:24 te
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:09 tests
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ # redirection with a[K[K[K[K[K[K[K[K[K[K[K[K
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ #input redirectionwith appedning
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ bin/rshell
+paul@Tizoc-220-1125:~$ cat < c>> te
+paul@Tizoc-220-1125:~$ ^C
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ cat te
+bin
+c
+io
+k
+l
+LICENSE
+Makefile
+out
+q
+README.md
+src
+t
+te
+tests
+total 68
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:21 bin
+-rw-rw-r-- 1 paul paul    61 Nov 20 23:25 c
+-rw-rw-r-- 1 paul paul     0 Nov 20 23:21 io
+-rw-rw-r-- 1 paul paul   116 Nov 20 23:24 k
+-rw-rw-r-- 1 paul paul    47 Nov 20 23:15 l
+-rw-rw-r-- 1 paul paul 18027 Nov 20 23:09 LICENSE
+-rw-rw-r-- 1 paul paul   542 Nov 20 23:09 Makefile
+-rw-rw-r-- 1 paul paul    54 Nov 20 23:13 out
+-rw-rw-r-- 1 paul paul   584 Nov 20 23:17 q
+-rw-rw-r-- 1 paul paul  1727 Nov 20 23:09 README.md
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:16 src
+-rw-rw-r-- 1 paul paul   683 Nov 20 23:24 t
+-rw-rw-r-- 1 paul paul   114 Nov 20 23:24 te
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:09 tests
+bin
+c
+io
+k
+l
+LICENSE
+Makefile
+out
+q
+README.md
+src
+t
+te
+tests
+total 68
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:21 bin
+-rw-rw-r-- 1 paul paul    61 Nov 20 23:25 c
+-rw-rw-r-- 1 paul paul     0 Nov 20 23:21 io
+-rw-rw-r-- 1 paul paul   116 Nov 20 23:24 k
+-rw-rw-r-- 1 paul paul    47 Nov 20 23:15 l
+-rw-rw-r-- 1 paul paul 18027 Nov 20 23:09 LICENSE
+-rw-rw-r-- 1 paul paul   542 Nov 20 23:09 Makefile
+-rw-rw-r-- 1 paul paul    54 Nov 20 23:13 out
+-rw-rw-r-- 1 paul paul   584 Nov 20 23:17 q
+-rw-rw-r-- 1 paul paul  1727 Nov 20 23:09 README.md
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:16 src
+-rw-rw-r-- 1 paul paul   683 Nov 20 23:24 t
+-rw-rw-r-- 1 paul paul   114 Nov 20 23:24 te
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:09 tests
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ # both previous cases  with spaces in between
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ bin/rshell
+paul@Tizoc-220-1125:~$ cat      <    te          >        q
+paul@Tizoc-220-1125:~$ cat      < q >> te
+paul@Tizoc-220-1125:~$ cat <                   q                >>  te
+paul@Tizoc-220-1125:~$ ^C
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ cat][K^C
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ bin/rshell
+paul@Tizoc-220-1125:~$ cat te
+bin
+c
+io
+k
+l
+LICENSE
+Makefile
+out
+q
+README.md
+src
+t
+te
+tests
+total 68
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:21 bin
+-rw-rw-r-- 1 paul paul    61 Nov 20 23:25 c
+-rw-rw-r-- 1 paul paul     0 Nov 20 23:21 io
+-rw-rw-r-- 1 paul paul   116 Nov 20 23:24 k
+-rw-rw-r-- 1 paul paul    47 Nov 20 23:15 l
+-rw-rw-r-- 1 paul paul 18027 Nov 20 23:09 LICENSE
+-rw-rw-r-- 1 paul paul   542 Nov 20 23:09 Makefile
+-rw-rw-r-- 1 paul paul    54 Nov 20 23:13 out
+-rw-rw-r-- 1 paul paul   584 Nov 20 23:17 q
+-rw-rw-r-- 1 paul paul  1727 Nov 20 23:09 README.md
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:16 src
+-rw-rw-r-- 1 paul paul   683 Nov 20 23:24 t
+-rw-rw-r-- 1 paul paul   114 Nov 20 23:24 te
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:09 tests
+bin
+c
+io
+k
+l
+LICENSE
+Makefile
+out
+q
+README.md
+src
+t
+te
+tests
+total 68
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:21 bin
+-rw-rw-r-- 1 paul paul    61 Nov 20 23:25 c
+-rw-rw-r-- 1 paul paul     0 Nov 20 23:21 io
+-rw-rw-r-- 1 paul paul   116 Nov 20 23:24 k
+-rw-rw-r-- 1 paul paul    47 Nov 20 23:15 l
+-rw-rw-r-- 1 paul paul 18027 Nov 20 23:09 LICENSE
+-rw-rw-r-- 1 paul paul   542 Nov 20 23:09 Makefile
+-rw-rw-r-- 1 paul paul    54 Nov 20 23:13 out
+-rw-rw-r-- 1 paul paul   584 Nov 20 23:17 q
+-rw-rw-r-- 1 paul paul  1727 Nov 20 23:09 README.md
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:16 src
+-rw-rw-r-- 1 paul paul   683 Nov 20 23:24 t
+-rw-rw-r-- 1 paul paul   114 Nov 20 23:24 te
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:09 tests
+bin
+c
+io
+k
+l
+LICENSE
+Makefile
+out
+q
+README.md
+src
+t
+te
+tests
+total 68
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:21 bin
+-rw-rw-r-- 1 paul paul    61 Nov 20 23:25 c
+-rw-rw-r-- 1 paul paul     0 Nov 20 23:21 io
+-rw-rw-r-- 1 paul paul   116 Nov 20 23:24 k
+-rw-rw-r-- 1 paul paul    47 Nov 20 23:15 l
+-rw-rw-r-- 1 paul paul 18027 Nov 20 23:09 LICENSE
+-rw-rw-r-- 1 paul paul   542 Nov 20 23:09 Makefile
+-rw-rw-r-- 1 paul paul    54 Nov 20 23:13 out
+-rw-rw-r-- 1 paul paul   584 Nov 20 23:17 q
+-rw-rw-r-- 1 paul paul  1727 Nov 20 23:09 README.md
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:16 src
+-rw-rw-r-- 1 paul paul   683 Nov 20 23:24 t
+-rw-rw-r-- 1 paul paul   114 Nov 20 23:24 te
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:09 tests
+bin
+c
+io
+k
+l
+LICENSE
+Makefile
+out
+q
+README.md
+src
+t
+te
+tests
+total 68
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:21 bin
+-rw-rw-r-- 1 paul paul    61 Nov 20 23:25 c
+-rw-rw-r-- 1 paul paul     0 Nov 20 23:21 io
+-rw-rw-r-- 1 paul paul   116 Nov 20 23:24 k
+-rw-rw-r-- 1 paul paul    47 Nov 20 23:15 l
+-rw-rw-r-- 1 paul paul 18027 Nov 20 23:09 LICENSE
+-rw-rw-r-- 1 paul paul   542 Nov 20 23:09 Makefile
+-rw-rw-r-- 1 paul paul    54 Nov 20 23:13 out
+-rw-rw-r-- 1 paul paul   584 Nov 20 23:17 q
+-rw-rw-r-- 1 paul paul  1727 Nov 20 23:09 README.md
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:16 src
+-rw-rw-r-- 1 paul paul   683 Nov 20 23:24 t
+-rw-rw-r-- 1 paul paul   114 Nov 20 23:24 te
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:09 tests
+bin
+c
+io
+k
+l
+LICENSE
+Makefile
+out
+q
+README.md
+src
+t
+te
+tests
+total 68
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:21 bin
+-rw-rw-r-- 1 paul paul    61 Nov 20 23:25 c
+-rw-rw-r-- 1 paul paul     0 Nov 20 23:21 io
+-rw-rw-r-- 1 paul paul   116 Nov 20 23:24 k
+-rw-rw-r-- 1 paul paul    47 Nov 20 23:15 l
+-rw-rw-r-- 1 paul paul 18027 Nov 20 23:09 LICENSE
+-rw-rw-r-- 1 paul paul   542 Nov 20 23:09 Makefile
+-rw-rw-r-- 1 paul paul    54 Nov 20 23:13 out
+-rw-rw-r-- 1 paul paul   584 Nov 20 23:17 q
+-rw-rw-r-- 1 paul paul  1727 Nov 20 23:09 README.md
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:16 src
+-rw-rw-r-- 1 paul paul   683 Nov 20 23:24 t
+-rw-rw-r-- 1 paul paul   114 Nov 20 23:24 te
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:09 tests
+bin
+c
+io
+k
+l
+LICENSE
+Makefile
+out
+q
+README.md
+src
+t
+te
+tests
+total 68
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:21 bin
+-rw-rw-r-- 1 paul paul    61 Nov 20 23:25 c
+-rw-rw-r-- 1 paul paul     0 Nov 20 23:21 io
+-rw-rw-r-- 1 paul paul   116 Nov 20 23:24 k
+-rw-rw-r-- 1 paul paul    47 Nov 20 23:15 l
+-rw-rw-r-- 1 paul paul 18027 Nov 20 23:09 LICENSE
+-rw-rw-r-- 1 paul paul   542 Nov 20 23:09 Makefile
+-rw-rw-r-- 1 paul paul    54 Nov 20 23:13 out
+-rw-rw-r-- 1 paul paul   584 Nov 20 23:17 q
+-rw-rw-r-- 1 paul paul  1727 Nov 20 23:09 README.md
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:16 src
+-rw-rw-r-- 1 paul paul   683 Nov 20 23:24 t
+-rw-rw-r-- 1 paul paul   114 Nov 20 23:24 te
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:09 tests
+paul@Tizoc-220-1125:~$ cat q
+bin
+c
+io
+k
+l
+LICENSE
+Makefile
+out
+q
+README.md
+src
+t
+te
+tests
+total 68
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:21 bin
+-rw-rw-r-- 1 paul paul    61 Nov 20 23:25 c
+-rw-rw-r-- 1 paul paul     0 Nov 20 23:21 io
+-rw-rw-r-- 1 paul paul   116 Nov 20 23:24 k
+-rw-rw-r-- 1 paul paul    47 Nov 20 23:15 l
+-rw-rw-r-- 1 paul paul 18027 Nov 20 23:09 LICENSE
+-rw-rw-r-- 1 paul paul   542 Nov 20 23:09 Makefile
+-rw-rw-r-- 1 paul paul    54 Nov 20 23:13 out
+-rw-rw-r-- 1 paul paul   584 Nov 20 23:17 q
+-rw-rw-r-- 1 paul paul  1727 Nov 20 23:09 README.md
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:16 src
+-rw-rw-r-- 1 paul paul   683 Nov 20 23:24 t
+-rw-rw-r-- 1 paul paul   114 Nov 20 23:24 te
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:09 tests
+bin
+c
+io
+k
+l
+LICENSE
+Makefile
+out
+q
+README.md
+src
+t
+te
+tests
+total 68
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:21 bin
+-rw-rw-r-- 1 paul paul    61 Nov 20 23:25 c
+-rw-rw-r-- 1 paul paul     0 Nov 20 23:21 io
+-rw-rw-r-- 1 paul paul   116 Nov 20 23:24 k
+-rw-rw-r-- 1 paul paul    47 Nov 20 23:15 l
+-rw-rw-r-- 1 paul paul 18027 Nov 20 23:09 LICENSE
+-rw-rw-r-- 1 paul paul   542 Nov 20 23:09 Makefile
+-rw-rw-r-- 1 paul paul    54 Nov 20 23:13 out
+-rw-rw-r-- 1 paul paul   584 Nov 20 23:17 q
+-rw-rw-r-- 1 paul paul  1727 Nov 20 23:09 README.md
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:16 src
+-rw-rw-r-- 1 paul paul   683 Nov 20 23:24 t
+-rw-rw-r-- 1 paul paul   114 Nov 20 23:24 te
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:09 tests
+paul@Tizoc-220-1125:~$ bin/rshell
+paul@Tizoc-220-1125:~$ ls > out > s > q
+paul@Tizoc-220-1125:~$ ^C
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ cat q
+bin
+c
+io
+k
+l
+LICENSE
+Makefile
+out
+q
+README.md
+src
+t
+te
+tests
+total 68
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:21 bin
+-rw-rw-r-- 1 paul paul    61 Nov 20 23:25 c
+-rw-rw-r-- 1 paul paul     0 Nov 20 23:21 io
+-rw-rw-r-- 1 paul paul   116 Nov 20 23:24 k
+-rw-rw-r-- 1 paul paul    47 Nov 20 23:15 l
+-rw-rw-r-- 1 paul paul 18027 Nov 20 23:09 LICENSE
+-rw-rw-r-- 1 paul paul   542 Nov 20 23:09 Makefile
+-rw-rw-r-- 1 paul paul    54 Nov 20 23:13 out
+-rw-rw-r-- 1 paul paul   584 Nov 20 23:17 q
+-rw-rw-r-- 1 paul paul  1727 Nov 20 23:09 README.md
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:16 src
+-rw-rw-r-- 1 paul paul   683 Nov 20 23:24 t
+-rw-rw-r-- 1 paul paul   114 Nov 20 23:24 te
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:09 tests
+bin
+c
+io
+k
+l
+LICENSE
+Makefile
+out
+q
+README.md
+src
+t
+te
+tests
+total 68
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:21 bin
+-rw-rw-r-- 1 paul paul    61 Nov 20 23:25 c
+-rw-rw-r-- 1 paul paul     0 Nov 20 23:21 io
+-rw-rw-r-- 1 paul paul   116 Nov 20 23:24 k
+-rw-rw-r-- 1 paul paul    47 Nov 20 23:15 l
+-rw-rw-r-- 1 paul paul 18027 Nov 20 23:09 LICENSE
+-rw-rw-r-- 1 paul paul   542 Nov 20 23:09 Makefile
+-rw-rw-r-- 1 paul paul    54 Nov 20 23:13 out
+-rw-rw-r-- 1 paul paul   584 Nov 20 23:17 q
+-rw-rw-r-- 1 paul paul  1727 Nov 20 23:09 README.md
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:16 src
+-rw-rw-r-- 1 paul paul   683 Nov 20 23:24 t
+-rw-rw-r-- 1 paul paul   114 Nov 20 23:24 te
+drwxrwxr-x 2 paul paul  4096 Nov 20 23:09 tests
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ exit
+exit
+
+Script done on Thu 20 Nov 2014 11:32:58 PM PST

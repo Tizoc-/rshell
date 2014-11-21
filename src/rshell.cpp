@@ -52,7 +52,6 @@ int main()
         for (tokenizer::iterator tok_iter = tokens.begin();
                 tok_iter != tokens.end(); ++tok_iter)
         {
-            std::cout << "<" << *tok_iter << "> ";
             if(*tok_iter=="|")
             {
               nump++;
@@ -64,7 +63,6 @@ int main()
             exit(1);
         }
         int count=0;
-        cout << "myqueue contains: "<<endl;
         while(!arg.empty())
         {
             if(arg.front()==";")
@@ -78,21 +76,13 @@ int main()
             }
             else if(arg.front()==">")
             {
-                cout<<"dwwee"<<endl;
                 arg.pop();
-                cout<<arg.front()<<endl;
                 outr=true;
-                if(outr==true)
-                {
-                    cout<<"sasawqw";
-                }
                 execute(args,arg,count,outr,inR,pip,argv);
             } 
             else if(arg.front()=="<")
             {
-                cout<<"dsrrh"<<endl;
                 arg.pop();
-                cout<<arg.front();
                 inR=true;
                 execute(args,arg,count,outr,inR,pip,argv);
 
@@ -117,8 +107,6 @@ int main()
         }
         if(arg.empty())
         {
-            cout<<count<<endl;
-            cout<<"emoty"<<endl; 
           execute(args,arg,count,outr,inR,pip,argv);
         }
     }
@@ -128,7 +116,6 @@ void argcom(queue<string> & arg,queue<string> & args,int count,char ** & argv)
 {
     int num=0;
     argv=new char*[count];
-    cout<<"qweer";
     for(int i=0;i<count;i++)
     {
 
@@ -139,11 +126,6 @@ void argcom(queue<string> & arg,queue<string> & args,int count,char ** & argv)
     }
     num++;
     argv[num]=NULL;
-    for(int i=0;i<count;i++)
-    {
-        cout<<"arg"<<endl;
-        cout<<argv[i]<<endl;
-    }
 
 }
 void pipin(queue <string> & arg,char **&argv,queue <string>pipearg)
@@ -163,7 +145,6 @@ void pipin(queue <string> & arg,char **&argv,queue <string>pipearg)
             count++;
         }
         argv=new char*[count];
-        cout<<"qweer";
         for(int i=0;i<count;i++)
         {
 
@@ -185,7 +166,6 @@ void pipin(queue <string> & arg,char **&argv,queue <string>pipearg)
     {
 
         argv=new char*[count];
-        cout<<"qweer";
         for(int i=0;i<count;i++)
         {
 
@@ -292,7 +272,6 @@ void execute(queue<string>&args,queue<string>&arg,int count,bool outr,bool inR,b
     {
         piip=3;
     }
-    cout<<count<<endl;
     int pid= fork();
     if(pid == -1)
     {
@@ -301,17 +280,11 @@ void execute(queue<string>&args,queue<string>&arg,int count,bool outr,bool inR,b
     else if(pid == 0)
     {     
         argcom(arg,args,count,argv);
-        cout<<oor<<endl;
-        cout<<count<<endl;
-        cout<<arg.front()<<endl;
         if(ii==0)
         {
 
-            cout<<count<<endl;
-            cout<<arg.front();
             if(arg.front()!="<")
             {
-                cout<<"sss";
                 int fdi=open(arg.front().c_str(),O_RDONLY);
                 if(fdi==-1)
                 {
@@ -328,7 +301,6 @@ void execute(queue<string>&args,queue<string>&arg,int count,bool outr,bool inR,b
             {
                 arg.pop();
                 arg.pop();
-                cout<< arg.front();
                 int fds = open(".oi2h3j1kj3", O_CREAT | O_RDWR | O_TRUNC, 0644);
                 if (errno != 0) {
                     perror("open");
@@ -359,7 +331,6 @@ void execute(queue<string>&args,queue<string>&arg,int count,bool outr,bool inR,b
                 }
             }
             arg.pop();
-            cout<<arg.front();
             if(arg.front()==">")
             {
                 oor=1;
@@ -371,9 +342,8 @@ void execute(queue<string>&args,queue<string>&arg,int count,bool outr,bool inR,b
                 arg.pop();
             }
         }
-        cout<<oor<<endl;
         if(oor==1)
-        {   cout<<arg.front();
+        {  
             if(arg.front()!=">")
             {
                 int fdo=open(arg.front().c_str(),O_RDWR|O_CREAT,0666);
@@ -419,7 +389,6 @@ void execute(queue<string>&args,queue<string>&arg,int count,bool outr,bool inR,b
                 perror("close");
             }
         }
-        cout<<"check"<<endl;
 
         if( execvp(argv[0] ,argv)==-1)
         {
@@ -429,14 +398,17 @@ void execute(queue<string>&args,queue<string>&arg,int count,bool outr,bool inR,b
     }
     else 
     {
-        wait(0);
-        if(errno!=0)
-        {
-            perror("wait");
-        }
-        while(!args.empty())
-        {
-            args.pop();
-        }
+	    if( wait(0)==-1)
+	    {
+		perror("wait");
+	    }
+	    if(errno!=0)
+	    {
+		    perror("wait");
+	    }
+	    while(!args.empty())
+	    {
+		    args.pop();
+	    }
     }
 }
