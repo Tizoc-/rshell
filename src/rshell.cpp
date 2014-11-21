@@ -244,171 +244,174 @@ void p(int nump,char **&argv,queue<string>&args,queue <string> &arg)
             if (pid == -1) {
                 perror("fork");
                 exit(1);
-            }
-        }
-        else
-        {
-            wait(0);
-            count++;
-        }
+	    }
+	}
+	else
+	{
+		if( wait(0)==-1)
+		{
+			perror("wait");	
+		}
+		count++;
+	}
     }
 
 }
 void execute(queue<string>&args,queue<string>&arg,int count,bool outr,bool inR,bool pip,char **&argv)
 {   int piip;
-    int oor;
-    int ii;
-    int fd[2];
-    pipe(fd);
-    if(outr==true)
-    {
-        oor=1;
-    }
-    if(inR==true)
-    {
-        ii=0;
-    }
-    if(pip==true)
-    {
-        piip=3;
-    }
-    int pid= fork();
-    if(pid == -1)
-    {
-        perror("fork");
-    }
-    else if(pid == 0)
-    {     
-        argcom(arg,args,count,argv);
-        if(ii==0)
-        {
+	int oor;
+	int ii;
+	int fd[2];
+	pipe(fd);
+	if(outr==true)
+	{
+		oor=1;
+	}
+	if(inR==true)
+	{
+		ii=0;
+	}
+	if(pip==true)
+	{
+		piip=3;
+	}
+	int pid= fork();
+	if(pid == -1)
+	{
+		perror("fork");
+	}
+	else if(pid == 0)
+	{     
+		argcom(arg,args,count,argv);
+		if(ii==0)
+		{
 
-            if(arg.front()!="<")
-            {
-                int fdi=open(arg.front().c_str(),O_RDONLY);
-                if(fdi==-1)
-                {
-                    perror("open");
-                    exit(1);
-                } 
-                if (dup2(fdi, 0) == -1)
-                {
-                    perror("dup2");
-                    exit(1);
-                }
-            }
-            if(arg.front()=="<")
-            {
-                arg.pop();
-                arg.pop();
-                int fds = open(".oi2h3j1kj3", O_CREAT | O_RDWR | O_TRUNC, 0644);
-                if (errno != 0) {
-                    perror("open");
-                    exit(1);
-                }
-                string quotes;
-                quotes.append(arg.front());
-                if(quotes[0]=='\"')
-                {
-                    quotes.erase(quotes.begin());
-                }
-                quotes.pop_back();
-                write(fds,quotes.c_str(),quotes.size());
-                if(errno !=0)
-                {
-                    perror("write");
-                    exit(1);
-                }
-                if( close(fds)==-1)
-                {
-                    perror("exit");
-                    exit(1);
-                }
-                fds=open(".oi2h3j1kj3", O_RDWR, 0644);
-                if( dup2(fds,0)==-1)
-                {
-                    perror("dup2");
-                }
-            }
-            arg.pop();
-            if(arg.front()==">")
-            {
-                oor=1;
-                arg.pop();
-            }
-            if(arg.front()=="|")
-            {
-                piip=3;  
-                arg.pop();
-            }
-        }
-        if(oor==1)
-        {  
-            if(arg.front()!=">")
-            {
-                int fdo=open(arg.front().c_str(),O_RDWR|O_CREAT,0666);
-                if(fdo==-1)
-                {
-                    perror("open");
-                    exit(1);
-                }
-                if (dup2(fdo, 1) == -1)
-                {
-                    perror("dup2");
-                    exit(1);
+			if(arg.front()!="<")
+			{
+				int fdi=open(arg.front().c_str(),O_RDONLY);
+				if(fdi==-1)
+				{
+					perror("open");
+					exit(1);
+				} 
+				if (dup2(fdi, 0) == -1)
+				{
+					perror("dup2");
+					exit(1);
+				}
+			}
+			if(arg.front()=="<")
+			{
+				arg.pop();
+				arg.pop();
+				int fds = open(".oi2h3j1kj3", O_CREAT | O_RDWR | O_TRUNC, 0644);
+				if (errno != 0) {
+					perror("open");
+					exit(1);
+				}
+				string quotes;
+				quotes.append(arg.front());
+				if(quotes[0]=='\"')
+				{
+					quotes.erase(quotes.begin());
+				}
+				quotes.pop_back();
+				write(fds,quotes.c_str(),quotes.size());
+				if(errno !=0)
+				{
+					perror("write");
+					exit(1);
+				}
+				if( close(fds)==-1)
+				{
+					perror("exit");
+					exit(1);
+				}
+				fds=open(".oi2h3j1kj3", O_RDWR, 0644);
+				if( dup2(fds,0)==-1)
+				{
+					perror("dup2");
+				}
+			}
+			arg.pop();
+			if(arg.front()==">")
+			{
+				oor=1;
+				arg.pop();
+			}
+			if(arg.front()=="|")
+			{
+				piip=3;  
+				arg.pop();
+			}
+		}
+		if(oor==1)
+		{  
+			if(arg.front()!=">")
+			{
+				int fdo=open(arg.front().c_str(),O_RDWR|O_CREAT,0666);
+				if(fdo==-1)
+				{
+					perror("open");
+					exit(1);
+				}
+				if (dup2(fdo, 1) == -1)
+				{
+					perror("dup2");
+					exit(1);
 
-                }
-            }
-            if(arg.front()==">")
-            {
-                arg.pop();
-                int fda=open(arg.front().c_str(),O_RDWR|O_CREAT|O_APPEND,0666);
-                if(fda==-1)
-                {
-                    perror("open");
-                    exit(1);
-                }
-                if (dup2(fda, 1) == -1)
-                {
-                    perror("dup2");
-                    exit(1);
+				}
+			}
+			if(arg.front()==">")
+			{
+				arg.pop();
+				int fda=open(arg.front().c_str(),O_RDWR|O_CREAT|O_APPEND,0666);
+				if(fda==-1)
+				{
+					perror("open");
+					exit(1);
+				}
+				if (dup2(fda, 1) == -1)
+				{
+					perror("dup2");
+					exit(1);
 
-                }
+				}
 
-            }
-        }
-        if(piip==3)
-        {
+			}
+		}
+		if(piip==3)
+		{
 
-            if( dup2(fd[1],1)==-1)
-            {
-                perror("dup2");
-            }
-            if(close(fd[0])==-1)
-            {
-                perror("close");
-            }
-        }
+			if( dup2(fd[1],1)==-1)
+			{
+				perror("dup2");
+			}
+			if(close(fd[0])==-1)
+			{
+				perror("close");
+			}
+		}
 
-        if( execvp(argv[0] ,argv)==-1)
-        {
-            exit(1);
-        }
+		if( execvp(argv[0] ,argv)==-1)
+		{
+			exit(1);
+		}
 
-    }
-    else 
-    {
-	    if( wait(0)==-1)
-	    {
-		perror("wait");
-	    }
-	    if(errno!=0)
-	    {
-		    perror("wait");
-	    }
-	    while(!args.empty())
-	    {
-		    args.pop();
-	    }
-    }
+	}
+	else 
+	{
+		if( wait(0)==-1)
+		{
+			perror("wait");
+		}
+		if(errno!=0)
+		{
+			perror("wait");
+		}
+		while(!args.empty())
+		{
+			args.pop();
+		}
+	}
 }
