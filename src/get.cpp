@@ -29,7 +29,10 @@ int main()
 	queue<string> dir;
 	struct stat buff;
 	int count=0;
-	signal(SIGINT,sighand);
+	if(signal(SIGINT,sighand)==SIG_ERR)
+	{
+	  perror("signal");
+	}
 	while(1)
 	{
 		struct passwd *pass;
@@ -273,7 +276,10 @@ void sighand(int sig)
 		}
 		if(pid==0)
 		{
-			kill(0,SIGINT);
+			if(kill(0,SIGINT)==-1)
+			{
+			 perror("kill");
+			}
 
 		}
 	}  
