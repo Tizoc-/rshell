@@ -2,6 +2,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <errno.h>
+#include <sys/mman.h>
 #include <sys/wait.h>
 #include <string.h>
 #include <pwd.h>
@@ -21,6 +22,7 @@ queue<string> parse(string a);
 queue<string> path();
 void run(int count,queue<string>&arg,queue<string>&dir);
 void myexec(int count,queue<string>&arg,queue<string>&dir);
+static int *flag;
 int main()
 {    
 	string usr;
@@ -29,9 +31,10 @@ int main()
 	queue<string> dir;
 	struct stat buff;
 	int count=0;
+	flag =(int *) mmap(0, sizeof *flag, PROT_READ|PROT_WRITE, MAP_SHARED|MAP_ANONYMOUS, -1, 0);
 	if(signal(SIGINT,sighand)==SIG_ERR)
 	{
-	  perror("signal");
+		perror("signal");
 	}
 	while(1)
 	{
@@ -46,7 +49,7 @@ int main()
 		{
 			perror("gethostname");
 		}
-	
+
 		string hostname(host);
 		delete[] host;
 		char buf[1024];
@@ -66,6 +69,7 @@ int main()
 		}
 		while(!cmd.empty())
 		{
+			dir= path();
 			if(cmd.front()=="exit")
 			{
 				exit(1);
@@ -79,12 +83,58 @@ int main()
 			}
 			else if(cmd.front()==";")
 			{
-			  cmd.pop();
+				cmd.pop();
+				run(count,arg,dir);
+				count=0;
+				while(!arg.empty())
+				{
+					arg.pop();
+				}		
+			}
+			else if(cmd.front()=="&&")
+			{
+				cmd.pop();
+				run(count,arg,dir);
+				if(*flag==1)
+				{
+					while(!cmd.empty())
+					{
+						cout<<cmd.front()<<endl;	
+						cmd.pop();
+						cout<<"in"<<endl;
+
+					}
+					/*	if(!cmd.empty())
+						{
+						cmd.pop();
+						}
+						cout<<"out"<<endl;*/
+				}
+				count=0;
+				while(!arg.empty())
+				{
+					arg.pop();
+				}
+				*flag==0;
+			}
+			else if(cmd.front()=="||")
+			{
+				cmd.pop();
+				run(count,arg,dir);
+				if(*flag==0)
+				{
+					while(!cmd.empty())
+					{
+						cmd.pop();
+					}
+				}
+				  
+
 			}
 			else if(cmd.front()=="cd")
 			{
 				cmd.pop();
-			 	chdir(cmd.front().c_str());
+				chdir(cmd.front().c_str());
 				while(!cmd.empty())
 				{
 					cmd.pop();
@@ -99,15 +149,14 @@ int main()
 			}
 		}	
 
-		dir= path();
 		run(count,arg,dir);
 		while(!arg.empty())
 		{
-		  arg.pop();
+			arg.pop();
 		}	
 		while(!dir.empty())
 		{
-		 dir.pop();
+			dir.pop();
 		}
 		count=0;
 	}
@@ -148,6 +197,7 @@ string prep(string usr)
 		{
 			f.append(" ");
 			f.append(*tok_iter);
+			f.append(" ");
 		}
 		else if(*tok_iter=="|")
 		{
@@ -160,6 +210,7 @@ string prep(string usr)
 			else if(i==1)
 			{
 				f.append(*tok_iter);
+				f.append(" ");
 				i=0;
 			}
 
@@ -175,6 +226,7 @@ string prep(string usr)
 			else if(a==1)
 			{
 				f.append(*tok_iter);
+				f.append(" ");
 				a=0;
 			}
 
@@ -230,10 +282,11 @@ void myexec(int count,queue<string>&arg,queue<string>&dir)
 	argv[num]=NULL;
 	if(cmd[0]=='/')
 	{
-	if(execv(cmd.c_str(),argv))
-	{
-	perror("execv");
-	}
+		if(execv(cmd.c_str(),argv))
+		{
+			perror("execv");
+			exit(1);
+		}
 	}
 	while(!dir.empty())
 	{
@@ -247,6 +300,8 @@ void myexec(int count,queue<string>&arg,queue<string>&dir)
 	if(e==-1);
 	{
 		perror("execvp");
+		*flag=1;
+		exit(1);
 	}
 
 }
@@ -278,7 +333,7 @@ void sighand(int sig)
 		{
 			if(kill(0,SIGINT)==-1)
 			{
-			 perror("kill");
+				perror("kill");
 			}
 
 		}
