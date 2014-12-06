@@ -30,6 +30,7 @@ int main()
 	queue<string> arg;	
 	queue<string> dir;
 	int count=0;
+	int argn=0;
 	flag =(int *) mmap(0, sizeof *flag, PROT_READ|PROT_WRITE, MAP_SHARED|MAP_ANONYMOUS, -1, 0);
 	if(signal(SIGINT,sighand)==SIG_ERR)
 	{
@@ -60,7 +61,6 @@ int main()
 		cout<<login<<"@"<<hostname<<":~"<<buf<<"$ ";
 		getline(cin,usr);
 		string a=prep(usr);	
-		cout<<a<<endl;
 		cmd=parse(a);
 		if(cmd.front()=="exit")
 		{
@@ -98,9 +98,7 @@ int main()
 				{
 					while(!cmd.empty())
 					{
-						cout<<cmd.front()<<endl;	
 						cmd.pop();
-						cout<<"in"<<endl;
 
 					}
 					/*	if(!cmd.empty())
@@ -152,14 +150,16 @@ int main()
 			}
 			else
 			{
-				cout<<cmd.front()<<endl;
 				arg.push(cmd.front());
 				cmd.pop();
 				count++;
 			}
 		}	
-
+	        argn=arg.size();	
+		if(argn>0)
+		{
 		run(count,arg,dir);
+		}
 		while(!arg.empty())
 		{
 			arg.pop();
@@ -185,9 +185,8 @@ queue<string>  path()
 	tokenizer tokens(get, sep);
 	for (tokenizer::iterator tok_iter = tokens.begin();
 			tok_iter != tokens.end(); ++tok_iter)
-	{	std::cout << "<" << *tok_iter << "> ";
+	{
 		arg.push(*tok_iter);
-		std::cout << "\n";
 	}
 	arg.push(".");
 	return arg;
@@ -203,7 +202,7 @@ string prep(string usr)
 	int i=0;
 	string f;
 	for (tokenizer::iterator tok_iter = tokens.begin();tok_iter != tokens.end(); ++tok_iter)
-	{	std::cout << "<" << *tok_iter << "> ";
+	{	
 		if(*tok_iter==";")
 		{
 			f.append(" ");
@@ -246,9 +245,7 @@ string prep(string usr)
 		{
 			f.append(*tok_iter);	
 		}	
-		std::cout << "\n";
 	}
-	cout<<f<<endl;
 	return f;
 }
 void run(int count,queue<string>&arg,queue<string>&dir)
@@ -261,7 +258,6 @@ void run(int count,queue<string>&arg,queue<string>&dir)
 		exit(1);
 	}else if(pid == 0)
 	{
-		cout<<"child"<<endl;
 		myexec(count,arg,dir);
 		exit(1);
 	}else if(pid > 0)
@@ -327,13 +323,13 @@ void myexec(int count,queue<string>&arg,queue<string>&dir)
 queue<string> parse(string a)
 {
 	queue<string>cmd;
-	cout<<a<<endl;
+
 	typedef boost::tokenizer<boost::char_separator<char> > 
 		tokenizer;
 	boost::char_separator<char> sep(" ","");
 	tokenizer tokens(a, sep);
 	for (tokenizer::iterator tok_iter = tokens.begin();tok_iter != tokens.end(); ++tok_iter)
-	{	std::cout << "<" << *tok_iter << "> ";
+	{	
 		cmd.push(*tok_iter);
 	}
 	return cmd;
@@ -356,5 +352,6 @@ void sighand(int sig)
 			}
 
 		}
+		cout<<endl;
 	}  
 }
