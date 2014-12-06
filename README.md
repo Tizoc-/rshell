@@ -78,3 +78,15 @@ piping doesnt work
 when more that one of the io redirection on the first one is taken into account
 
 passing in nothing causes segmentation fault
+
+Bug signals
+---
+cd cant take ~ or no arguments
+
+^C doesnt  print out new prompt
+
+when running rshell inside of another rhsell when pressing ^C cause it to skipping two lines instead of just one
+
+^C only prints out new prompt when enter is pressed
+
+

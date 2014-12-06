@@ -1,0 +1,138 @@
+Script started on Fri 05 Dec 2014 10:17:26 PM PST
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ bin/rshell
+paul@Tizoc-220-1125:~/home/paul/rshell$ # testing ^C
+paul@Tizoc-220-1125:~/home/paul/rshell$ ^C
+^C
+^C
+^C
+^C
+^C
+
+paul@Tizoc-220-1125:~/home/paul/rshell$ cat
+^C
+paul@Tizoc-220-1125:~/home/paul/rshell$ dsafdf^C
+
+paul@Tizoc-220-1125:~/home/paul/rshell$ ^C
+ls
+bin  LICENSE  Makefile	new  README.md	signal	signals  src  tests
+paul@Tizoc-220-1125:~/home/paul/rshell$ cat k 
+skks
+skks
+^C
+paul@Tizoc-220-1125:~/home/paul/rshell$ tee new
+dds
+dds
+d
+d
+^C
+paul@Tizoc-220-1125:~/home/paul/rshell$ cat new
+dds
+d
+paul@Tizoc-220-1125:~/home/paul/rshell$ # cd command single
+paul@Tizoc-220-1125:~/home/paul/rshell$ cd ..
+paul@Tizoc-220-1125:~/home/paul$ pwd
+/home/paul
+paul@Tizoc-220-1125:~/home/paul$ # c  d with ; connector
+paul@Tizoc-220-1125:~/home/paul$ cd rshell;cd src
+paul@Tizoc-220-1125:~/home/paul/rshell/src$ pwd
+/home/paul/rshell/src
+paul@Tizoc-220-1125:~/home/paul/rshell/src$ cd ..
+paul@Tizoc-220-1125:~/home/paul/rshell$ # cd like bash ignores the following arguments
+paul@Tizoc-220-1125:~/home/paul/rshell$ cd src kjdhfsj
+paul@Tizoc-220-1125:~/home/paul/rshell/src$ # commands run normally with execv
+paul@Tizoc-220-1125:~/home/paul/rshell/src$ ls
+cp.cpp	get.cpp  ls.cpp  main.cpp  queue.cpp  rshell.cpp  Timer.h
+paul@Tizoc-220-1125:~/home/paul/rshell/src$ ls;ls
+cp.cpp	get.cpp  ls.cpp  main.cpp  queue.cpp  rshell.cpp  Timer.h
+cp.cpp	get.cpp  ls.cpp  main.cpp  queue.cpp  rshell.cpp  Timer.h
+paul@Tizoc-220-1125:~/home/paul/rshell/src$ l  s -la ;ls pwd
+total 60
+drwxrwxr-x 2 paul paul 4096 Dec  5 22:06 .
+drwxrwxr-x 6 paul paul 4096 Dec  5 22:11 ..
+-rw-rw-r-- 1 paul paul 5698 Dec  5 22:06 cp.cpp
+-rw-rw-r-- 1 paul paul 5554 Dec  5 22:06 get.cpp
+-rw-rw-r-- 1 paul paul 8456 Dec  5 22:06 ls.cpp
+-rw-rw-r-- 1 paul paul 4068 Dec  5 22:06 main.cpp
+-rw-rw-r-- 1 paul paul 5691 Dec  5 22:06 queue.cpp
+-rw-rw-r-- 1 paul paul 5526 Dec  5 22:06 rshell.cpp
+-rw-rw-r-- 1 paul paul 2700 Dec  5 22:06 Timer.h
+ls: cannot access pwd: No such file or directory
+paul@Tizoc-220-1125:~/home/paul/rshell/src$ ls ; pwd; cat
+cp.cpp	get.cpp  ls.cpp  main.cpp  queue.cpp  rshell.cpp  Timer.h
+/home/paul/rshell/src
+^C
+paul@Tizoc-220-1125:~/home/paul/rshell/src$ ls && ls
+cp.cpp	get.cpp  ls.cpp  main.cpp  queue.cpp  rshell.cpp  Timer.h
+cp.cpp	get.cpp  ls.cpp  main.cpp  queue.cpp  rshell.cpp  Timer.h
+paul@Tizoc-220-1125:~/home/paul/rshell/src$ a && l  ls
+execvp: No such file or directory
+paul@Tizoc-220-1125:~/home/paul/rshell/src$ # tuns coo rrectly even if command input is already a path
+paul@Tizoc-220-1125:~/home/paul/rshell/src$ /bin/ls
+cp.cpp	get.cpp  ls.cpp  main.cpp  queue.cpp  rshell.cpp  Timer.h
+paul@Tizoc-220-1125:~/home/paul/rshell/src$ /bin/pwd
+/home/paul/rshell/src
+paul@Tizoc-220-1125:~/home/paul/rshell/src$ # runs if commands is in courrent directory
+paul@Tizoc-220-1125:~/home/paul/rshell/src$ ./bin/ls
+execv: No such file or directory
+paul@Tizoc-220-1125:~/home/paul/rshell/src$ cd ..
+paul@Tizoc-220-1125:~/home/paul/rshell$ ./bin/ls
+bin  LICENSE  Makefile  new  README.md  signal  signals  src  tests  paul@Tizoc-220-1125:~/home/paul/rshell$ 
+paul@Tizoc-220-1125:~/home/paul/rshell$ # use own built in commands
+paul@Tizoc-220-1125:~/home/paul/rshell$ bi  ./bin/ls -la
+total: 60
+drwxrwxr-x  6 paul paul 4096 Dec  5 22:11 . 
+drwxr-xr-x  60 paul paul 4096 Dec  5 22:06 .. 
+drwxrwxr-x  2 paul paul 4096 Dec  5 22:06 bin 
+drwxrwxr-x  8 paul paul 4096 Dec  5 22:06 .git 
+-rwrw-r--  1 paul paul 18027 Dec  5 22:06 LICENSE 
+-rwrw-r--  1 paul paul 542 Dec  5 22:06 Makefile 
+-rwrw-r--  1 paul paul 6 Dec  5 22:19 new 
+-rwrw-r--  1 paul paul 2013 Dec  5 22:06 README.md 
+-rwrw-r--  1 paul paul 1170 Dec  5 22:09 signal 
+-rwrw-r--  1 paul paul 0 Dec  5 22:17 signals 
+drwxrwxr-x  2 paul paul 4096 Dec  5 22:06 src 
+drwxrwxr-x  2 paul paul 4096 Dec  5 22:06 tests 
+paul@Tizoc-220-1125:~/home/paul/rshell$ # run all previous p commands when running rshell inside of rshell
+paul@Tizoc-220-1125:~/home/paul/rshell$ bin/rshell
+paul@Tizoc-220-1125:~/home/paul/rshell$ ls
+bin  LICENSE  Makefile	new  README.md	signal	signals  src  tests
+paul@Tizoc-220-1125:~/home/paul/rshell$ ls ;ls
+bin  LICENSE  Makefile	new  README.md	signal	signals  src  tests
+bin  LICENSE  Makefile	new  README.md	signal	signals  src  tests
+paul@Tizoc-220-1125:~/home/paul/rshell$ cd ..
+paul@Tizoc-220-1125:~/home/paul$ cd rshell;cd src
+paul@Tizoc-220-1125:~/home/paul/rshell/src$ cat
+^C
+
+paul@Tizoc-220-1125:~/home/paul/rshell/src$ ^C
+
+^C
+
+
+paul@Tizoc-220-1125:~/home/paul/rshell/src$ ./in    cd ..
+paul@Tizoc-220-1125:~/home/paul/rshell$ ./bin/ls -la
+total: 64
+drwxrwxr-x  6 paul paul 4096 Dec  5 22:11 . 
+drwxr-xr-x  60 paul paul 4096 Dec  5 22:06 .. 
+drwxrwxr-x  2 paul paul 4096 Dec  5 22:06 bin 
+drwxrwxr-x  8 paul paul 4096 Dec  5 22:06 .git 
+-rwrw-r--  1 paul paul 18027 Dec  5 22:06 LICENSE 
+-rwrw-r--  1 paul paul 542 Dec  5 22:06 Makefile 
+-rwrw-r--  1 paul paul 6 Dec  5 22:19 new 
+-rwrw-r--  1 paul paul 2013 Dec  5 22:06 README.md 
+-rwrw-r--  1 paul paul 1170 Dec  5 22:09 signal 
+-rwrw-r--  1 paul paul 4096 Dec  5 22:24 signals 
+drwxrwxr-x  2 paul paul 4096 Dec  5 22:06 src 
+drwxrwxr-x  2 paul paul 4096 Dec  5 22:06 tests 
+paul@Tizoc-220-1125:~/home/paul/rshell$ ps
+  PID TTY          TIME CMD
+ 3845 pts/9    00:00:00 bash
+ 3857 pts/9    00:00:00 rshell
+ 3923 pts/9    00:00:00 rshell
+ 3937 pts/9    00:00:00 ps
+paul@Tizoc-220-1125:~/home/paul/rshell$ exit
+paul@Tizoc-220-1125:~/home/paul/rshell$ exit
+]0;paul@Tizoc-220-1125: ~/rshellpaul@Tizoc-220-1125:~/rshell$ exit
+exit
+
+Script done on Fri 05 Dec 2014 10:25:55 PM PST
