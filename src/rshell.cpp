@@ -129,12 +129,14 @@ int main()
 					}
 				}
 				  
-
 			}
 			else if(cmd.front()=="cd")
 			{
 				cmd.pop();
-				chdir(cmd.front().c_str());
+				if(chdir(cmd.front().c_str())==-1)
+				{
+				 perror("chdir");
+				}
 				cmd.pop();
 				if(!cmd.empty())
 				{
@@ -288,7 +290,7 @@ void myexec(int count,queue<string>&arg,queue<string>&dir)
 	argv[num]=NULL;
 	if(cmd[0]=='/')
 	{
-		if(execv(cmd.c_str(),argv))
+		if(execv(cmd.c_str(),argv)==-1)
 		{
 			perror("execv");
 			exit(1);
@@ -296,7 +298,7 @@ void myexec(int count,queue<string>&arg,queue<string>&dir)
 	}
 	else if(cmd[0]=='.')
 	{
-		if(execv(cmd.c_str(),argv))
+		if(execv(cmd.c_str(),argv)==-1)
 		{
 			perror("execv");
 			exit(1);
