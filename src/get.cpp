@@ -29,7 +29,6 @@ int main()
 	queue<string> cmd;
 	queue<string> arg;	
 	queue<string> dir;
-	struct stat buff;
 	int count=0;
 	flag =(int *) mmap(0, sizeof *flag, PROT_READ|PROT_WRITE, MAP_SHARED|MAP_ANONYMOUS, -1, 0);
 	if(signal(SIGINT,sighand)==SIG_ERR)
@@ -55,7 +54,7 @@ int main()
 		char buf[1024];
 		if(!getcwd(buf,1024))
 		{
-			perror("problem with getcwd.");
+			perror("getcwd.");
 		}
 
 		cout<<login<<"@"<<hostname<<":~"<<buf<<"$ ";
@@ -115,7 +114,7 @@ int main()
 				{
 					arg.pop();
 				}
-				*flag==0;
+				*flag=0;
 			}
 			else if(cmd.front()=="||")
 			{
@@ -135,9 +134,20 @@ int main()
 			{
 				cmd.pop();
 				chdir(cmd.front().c_str());
-				while(!cmd.empty())
+				cmd.pop();
+				if(!cmd.empty())
 				{
-					cmd.pop();
+					if(cmd.front()!=";")
+					{
+						while(!cmd.empty())
+						{
+							cmd.pop();
+						}		 
+					}
+					else
+					{
+						cmd.pop();
+					}
 				}
 			}
 			else
@@ -179,6 +189,7 @@ queue<string>  path()
 		arg.push(*tok_iter);
 		std::cout << "\n";
 	}
+	arg.push(".");
 	return arg;
 
 }
@@ -281,6 +292,14 @@ void myexec(int count,queue<string>&arg,queue<string>&dir)
 	num++;
 	argv[num]=NULL;
 	if(cmd[0]=='/')
+	{
+		if(execv(cmd.c_str(),argv))
+		{
+			perror("execv");
+			exit(1);
+		}
+	}
+	else if(cmd[0]=='.')
 	{
 		if(execv(cmd.c_str(),argv))
 		{
