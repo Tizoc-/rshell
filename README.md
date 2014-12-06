@@ -10,7 +10,7 @@ Summary
 ---
 My attempt at my own rshell bash terminal that passes bin commands which supports multiple arguments in commands, comments, and exit from the terminal.This repo also now come with its own ls command that supports diplaying directory contents and information.
 This was accomplished using the stat and opendir readdir and closedir function calls(also one instance of the readlink syscall).
-
+The rshell terminal now also has signal catching and cor ^C and implented the cd command as well the works a biot similar to the bash version.The rshell also manually searches for the the path as well.
 How to run
 ---
 To run this you first need to clone
