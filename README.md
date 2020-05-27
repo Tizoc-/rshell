@@ -39,9 +39,6 @@ ls can display hiddens files
 
 Bug
 ---
-when an invalid command is entered exit need to be pressed twice to exit shell
-
-connecters(;,&&,||) dont work
 
 input needs to have spaces so it can  parse correctly
 
@@ -49,13 +46,9 @@ when an invalid command is entered need to press the exit command the amount of 
 
 although the # comments out the line and commands it show ups a an invalid command
 
-hostname doesnt show up correctly in script
-
 if a connecter or comment is nest to a command it wont read it
 
 argument array limited to 100
-
-username and  hostname displayed
 
 Bugs ls
 ---
@@ -72,9 +65,5 @@ not formatted properly
 Bug io
 ---
 after running any number of io redirections the regular bash commands such as cat, ls ,pwd without redirection doesnt not work
-
-piping doesnt work
-
-when more that one of the io redirection on the first one is taken into account
 
 passing in nothing causes segmentation fault
